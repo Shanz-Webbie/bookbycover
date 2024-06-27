@@ -6,6 +6,9 @@ def create_user(email,password,first_name,last_name):
     """Create and return a new user."""
     user = User(email=email, password=password, first_name= first_name, last_name=last_name)
 
+    db.session.add(user)
+    db.session.commit()
+
     return user
 
 def get_users():
@@ -32,6 +35,9 @@ def create_book(title, author, publish_date, book_image):
         book_image = book_image
     )
 
+    db.session.add(book)
+    db.session.commit()
+
     return book
 
 def get_books():
@@ -54,13 +60,21 @@ def get_genre_by_id(genre_id):
 
     return Genre.query.get(genre_id)
 
-def create_favorite(user, book, favorite_id):
-    """Create and return a favorited book."""
+def create_favorite(user, book):
+    """Create and return a favorited book object."""
 
-    favorited_book = Favorite(user=user, book=book, favorite_id=favorite_id)
-    return favorited_book
+    favorite_obj = Favorite(user=user, book=book)
 
-def update_favorite(favorite_id, new_favorite):
-    """ Update a rating given rating_id and the updated score. """
-    favorite = Favorite.query.get(favorite_id)
-    favorite.favorite_id = new_favorite
+    db.session.add(favorite_obj)
+    db.session.commit()
+
+    return favorite_obj
+
+def get_favorite_by_id(favorite_id):
+    """Return a favorite by primary key."""
+
+    return Favorite.query.get(favorite_id)
+
+def delete_a_favorite(favorite):
+    """ Delete a favorite. """
+    db.session.delete(favorite)
