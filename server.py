@@ -1,10 +1,16 @@
 from flask import Flask, render_template, request, redirect, flash, session
 
+import crud
+from model import db
+
 from pprint import pformat
 import os
 
 
 app = Flask(__name__)
+
+# ToDo remove secret and config from global scope
+
 app.secret_key = 'SECRETSECRETSECRET'
 
 # This configuration option makes the Flask interactive debugger
@@ -19,24 +25,31 @@ def homepage():
 
     return render_template('homepage.html')
 
-def verify_authorization(username, password):
+def verify_authorization(user):
     """Verify if user is authorized."""
 
     authorized = False
-    if username and password:
+    if user:
         authorized = True
     return authorized
 
-@app.route('/', methods=["POST", "GET"])
+@app.route('/home', methods=["POST", "GET"])
 def login():
     """Get username and password"""
 
-    username = request.form.get("username")
-    password = request.form.get("password")
-    if verify_authorization(username, password):
+    user = crud.get_user_by_email(session['email'])
+
+    user_login_info = crud.create_user(user)
+
+    if verify_authorization(user):
         return redirect("/home")
+
+    db.session.add(user_login_info)
+    db.session.commit()
+
     return render_template('login.html')
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host='0.0.0.0', port=6060)
+    # loopback address
+    app.run(host='127.0.0.1', port=6060)
