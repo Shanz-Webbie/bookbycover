@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy
+db = SQLAlchemy()
 
 class User(db.Model):
     """A user."""
@@ -13,11 +13,31 @@ class User(db.Model):
     user_password = db.Column(db.String)
     user_first_name = db.Column(db.String)
     user_last_name = db.Column(db.String)
-    created_at = db.Column(db.Datetime)
-    favorites = db.relationship("Favorites", back_populates="user")
+    created_at = db.Column(db.DateTime)
+
+    favorites = db.relationship("Favorite", back_populates="user")
 
     def __repr__(self):
         return f"<User user_id={self.user_id} email={self.email} first_name={self.user_first_name} last_name={self.user_last_name}>"
+
+
+class Book(db.Model):
+    """A book."""
+
+    __tablename__ = "books"
+
+    book_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    book_title = db.Column(db.String)
+    # book_image = db.Column(db.Image)
+    author_name = db.Column(db.String)
+    publish_date = db.Column(db.String)
+
+    favorites = db.relationship("Favorite", back_populates="book")
+    bookgenre = db.relationship("BookGenre", back_populates="book")
+
+    def __repr__(self):
+        return f"<Book book_id={self.book_id} book_title={self.book_title} author_name={self.author_name}>"
+
 
 class Favorite(db.Model):
     """A favorited book."""
@@ -28,7 +48,7 @@ class Favorite(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
     book_id = db.Column(db.Integer, db.ForeignKey("books.book_id"))
     # when was the favorite created
-    created_at = db.Column(db.Datetime)
+    created_at = db.Column(db.DateTime)
     # # if/when was the favorite deleted
     # deleted_at = db.Column(db.Datetime, nullable=True, default=None)
     user = db.relationship("User", back_populates="favorites")
@@ -37,21 +57,6 @@ class Favorite(db.Model):
     def __repr__(self):
         return f"<Favorite favorite_id={self.favorite_id}>"
 
-class Book(db.Model):
-    """A book."""
-
-    __tablename__ = "books"
-
-    book_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    book_title = db.Column(db.String)
-    author_name = db.Column(db.String)
-    publish_date = db.Column(db.Datetime)
-
-    favorites = db.relationship("Favorites", back_populates="book")
-    book_genres = db.relationship("BookGenre", back_populates="book")
-
-    def __repr__(self):
-        return f"<Book book_id={self.book_id} book_title={self.book_title} author_name={self.author_name}>"
 
 class BookGenre(db.Model):
     """A middle table for book and genre."""
@@ -61,9 +66,11 @@ class BookGenre(db.Model):
     bookgenre_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     book_id = db.Column(db.Integer, db.ForeignKey("books.book_id"))
     genre_id = db.Column(db.Integer, db.ForeignKey("genres.genre_id"))
+    # genre_name = db.Column(db.String)
 
 
-    books = db.relationship("Books", back_populates="bookgenre")
+    book = db.relationship("Book", back_populates="bookgenre")
+    genre = db.relationship("Genre", back_populates="bookgenre")
 
     def __repr__(self):
         return f"<BookGenre bookgenre_id={self.bookgenre_id}>"
@@ -71,21 +78,21 @@ class BookGenre(db.Model):
 class Genre(db.Model):
     """A middle table for book and genre."""
 
-    __tablename__ = "genre"
+    __tablename__ = "genres"
 
     genre_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     genre_name = db.Column(db.String)
-    is_fiction = db.Column(db.Bool)
+    is_fiction = db.Column(db.Boolean)
 
 
-    book_genres = db.relationship("BookGenre", back_populates="genre")
+    bookgenre = db.relationship("BookGenre", back_populates="genre")
 
     def __repr__(self):
         return f"<Genre genre_id={self.genre_id}>"
 
 
 
-def connect_to_db(flask_app, db_uri="postgresql:///bookbycover", echo=True):
+def connect_to_db(flask_app, db_uri="postgresql:///books", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
     flask_app.config["SQLALCHEMY_ECHO"] = echo
     flask_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False

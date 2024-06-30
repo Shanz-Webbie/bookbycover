@@ -1,6 +1,6 @@
 """CRUD operations"""
 
-from model import db, User, Book, BookGenre, Genre, Favorite
+from model import db, User, Book, BookGenre, Genre, Favorite, connect_to_db
 
 def create_user(email,password,first_name,last_name):
     """Create and return a new user."""
@@ -26,16 +26,28 @@ def get_user_by_email(email):
 
     return User.query.filter(User.email == email).first()
 
-def create_book(title, author, publish_date, book_image):
+def create_book(title, author, publish_date, genre_name, is_fiction):
     """Create and return a book."""
     book = Book(
-        title = title,
-        author = author,
+        book_title = title,
+        author_name = author,
         publish_date = publish_date,
-        book_image = book_image
+        # book_image = book_image
+    )
+    genre = Genre(
+        genre_name= genre_name,
+        is_fiction= is_fiction
+    )
+
+    book_genre = BookGenre(
+        book_id= book.book_id,
+        genre_id = genre.genre_id
+
     )
 
     db.session.add(book)
+    db.session.add(genre)
+    db.session.add(book_genre)
     db.session.commit()
 
     return book
@@ -78,3 +90,9 @@ def get_favorite_by_id(favorite_id):
 def delete_a_favorite(favorite):
     """ Delete a favorite. """
     db.session.delete(favorite)
+
+
+if __name__ == "__main__":
+    from server import app
+
+    connect_to_db(app)

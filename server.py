@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, flash, session
-
+from model import connect_to_db, db
 import crud
-from model import db
+from jinja2 import StrictUndefined
+
 
 from pprint import pformat
 import os
@@ -16,8 +17,11 @@ app.secret_key = 'SECRETSECRETSECRET'
 # This configuration option makes the Flask interactive debugger
 # more useful (you should remove this line in production though)
 app.config['PRESERVE_CONTEXT_ON_EXCEPTION'] = True
+app.jinja_env.undefined = StrictUndefined
 
-API_Key = os.environ['GOOGLEBOOKS_KEY']
+def get_api_key():
+    API_Key = os.environ['GOOGLEBOOKS_KEY']
+    return API_Key
 
 @app.route('/')
 def homepage():
@@ -50,6 +54,7 @@ def login():
     return render_template('login.html')
 
 if __name__ == '__main__':
+    connect_to_db(app)
     app.debug = True
     # loopback address
     app.run(host='127.0.0.1', port=6060)
