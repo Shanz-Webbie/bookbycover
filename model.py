@@ -12,13 +12,13 @@ class User(db.Model):
     user_email = db.Column(db.String, unique=True)
     user_password = db.Column(db.String)
     user_first_name = db.Column(db.String)
-    user_last_name = db.Column(db.String)
+    # user_last_name = db.Column(db.String)
     created_at = db.Column(db.DateTime)
 
     favorites = db.relationship("Favorite", back_populates="user")
 
     def __repr__(self):
-        return f"<User user_id={self.user_id} email={self.email} first_name={self.user_first_name} last_name={self.user_last_name}>"
+        return f"<User user_id={self.user_id} email={self.user_email} first_name={self.user_first_name} last_name={self.user_last_name}>"
 
 
 class Book(db.Model):

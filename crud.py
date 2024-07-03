@@ -2,9 +2,9 @@
 
 from model import db, User, Book, BookGenre, Genre, Favorite, connect_to_db
 
-def create_user(email,password,first_name,last_name):
+def create_user(user_email,user_password,user_first_name):
     """Create and return a new user."""
-    user = User(email=email, password=password, first_name= first_name, last_name=last_name)
+    user = User(user_email=user_email, user_password=user_password, user_first_name= user_first_name)
 
     db.session.add(user)
     db.session.commit()
@@ -24,7 +24,7 @@ def get_user_by_id(user_id):
 def get_user_by_email(email):
     """Return a user by email."""
 
-    return User.query.filter(User.email == email).first()
+    return User.query.filter(User.user_email == email).first()
 
 def create_book(title, author, publish_date, genre_name, is_fiction):
     """Create and return a book."""

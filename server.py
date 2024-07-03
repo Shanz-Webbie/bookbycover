@@ -29,32 +29,80 @@ def homepage():
 
     return render_template('homepage.html')
 
-def verify_authorization(user):
-    """Verify if user is authorized."""
+# def verify_authorization(user):
+#     """Verify if user is authorized."""
 
-    authorized = False
+#     authorized = False
+#     if user:
+#         authorized = True
+#     return authorized
+
+@app.route("/signup", methods=["POST"])
+def register_user():
+    """Create a new user."""
+
+    user_email = request.form.get("email")
+    password = request.form.get("password")
+    first_name = request.form.get("fname")
+
+    user = crud.get_user_by_email(user_email)
     if user:
-        authorized = True
-    return authorized
+        flash("Email already in use. Try again.")
+    else:
+        user = crud.create_user(user_email, password, first_name)
+        db.session.add(user)
+        db.session.commit()
+        flash("Account created! Please log in.")
 
-@app.route('/home', methods=["POST", "GET"])
-def login():
-    """Get username and password"""
+    return redirect("/browse")
 
-    user = crud.get_user_by_email(session['email'])
+@app.route("/login", methods=["POST"])
+def process_login():
+    """Process user login."""
 
-    user_login_info = crud.create_user(user)
+    email = request.form.get("email")
+    password = request.form.get("password")
 
-    if verify_authorization(user):
-        return redirect("/home")
+    user = crud.get_user_by_email(email)
+    if not user or user.user_password != password:
+        flash("The email or password you entered was incorrect.")
+    else:
+        # Log in user by storing the user's email in session
+        session["user_email"] = user.user_email
+        flash(f"Welcome back, {user.user_email}!")
 
-    db.session.add(user_login_info)
-    db.session.commit()
+    return redirect("/browse")
 
-    return render_template('login.html')
+@app.route('/browse')
+def browse():
+    """Show browsing homepage."""
+
+    return render_template('browse.html')
+
+@app.route('/favorites')
+def favorites():
+    """Show favorites homepage."""
+
+    return render_template('favorites.html')
+
+# @app.route('/login', methods=["POST"])
+# def login():
+#     """Get username and password"""
+
+#     # user = crud.get_user_by_email(session['email'])
+
+#     # user_login_info = crud.create_user(user)
+
+#     # if verify_authorization(user):
+#     #     return redirect("/home")
+
+#     # db.session.add(user_login_info)
+#     # db.session.commit()
+
+#     return render_template('login.html')
 
 if __name__ == '__main__':
     connect_to_db(app)
     app.debug = True
     # loopback address
-    app.run(host='127.0.0.1', port=6060)
+    app.run(host='0.0.0.0', port=6060)
