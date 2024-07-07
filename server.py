@@ -22,7 +22,7 @@ app.jinja_env.undefined = StrictUndefined
 def get_user_from_session() -> User | None:
     user_email = session.get("user_email")
     if user_email:
-        return crud.get_user_by_email()
+        return crud.get_user_by_email(user_email)
     else:
         return None
 
@@ -53,6 +53,12 @@ def homepage():
     else:
         return redirect("/login")
 
+
+@app.route("/signup")
+def show_signup_page():
+    """Show signup page."""
+    return render_template("signup.html")
+
 @app.route("/signup", methods=["POST", "GET"])
 def register_user():
     """Create a new user."""
@@ -60,15 +66,14 @@ def register_user():
     user_email = request.form.get("user_email")
     user_password = request.form.get("user_password")
     user_first_name = request.form.get("user_first_name")
-    user = crud.get_user_by_email(user_email)
-    if user:
-        flash("Email already in use. Try again.")
-        return abort(400)
+    if crud.get_user_by_email(user_email):
+        flash("Email already in use. Try using a different password.")
+        return redirect("/login")
+        # return abort(400)
     else:
         user = crud.create_user(user_email, user_password, user_first_name)
-        flash("Account created! Please log in.")
-        return redirect("/browse")
-
+        flash("Account created!")
+        return redirect("/login")
 
 
 
@@ -79,33 +84,36 @@ def show_login_page():
     return render_template("login.html")
 
 
-@app.route("/login", methods=["POST"])
+
+@app.route("/login", methods=["POST", "GET"])
 def process_login():
     """Process user login."""
 
     user_email = request.form.get("user_email")
-    password = request.form.get("user_password")
-
-    # if request.method == "POST":
-    #     session.permanent = True
-    #     session["user_email"] = user_email
+    user_password = request.form.get("user_password")
+    user = crud.get_user_by_email(user_email)
 
 
-    # user = crud.get_user_by_email(user_email)
-    # if not user or user.user_password != password:
-    #     flash("The email or password you entered was incorrect.")
-    # else:
-    #     # Log in user by storing the user's email in session
-    #     session["user_email"] = user.user_email
-    #     flash(f"Welcome back, {user.user_email}!")
+    if is_user_authorized():
+        return redirect("/browse")
+    if not user:
+        return redirect("/signup")
+    if user.user_password == user_password:
+        user = crud.get_user_by_email(user_email)
+        session["user_email"] = user_email
+        flash("Success!")
+        return redirect("/browse")
+    else:
+        flash("The email or password you entered was incorrect.")
+        return abort(400)
 
-    # return redirect("/browse")
 
 @app.route('/browse')
 def browse():
     """Show browsing homepage."""
-
-    return render_template('browse.html')
+    user_object = get_user_from_session()
+    flash(f"Welcome back, {user_object.user_first_name}!")
+    return render_template('browse.html', user_first_name=user_object.user_first_name)
 
 @app.route('/favorites')
 def favorites():
@@ -113,21 +121,7 @@ def favorites():
 
     return render_template('favorites.html')
 
-@app.route('/login', methods=["POST"])
-def login():
-    """Get username and password"""
 
-    # user = crud.get_user_by_email(session['email'])
-
-    # user_login_info = crud.create_user(user)
-
-    # if verify_authorization(user):
-    #     return redirect("/home")
-
-    # db.session.add(user_login_info)
-    # db.session.commit()
-
-    return render_template('login.html')
 
 if __name__ == '__main__':
     connect_to_db(app)
