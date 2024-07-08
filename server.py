@@ -4,6 +4,7 @@ import crud
 from jinja2 import StrictUndefined
 
 
+
 from pprint import pformat
 import os
 
@@ -12,7 +13,11 @@ app = Flask(__name__)
 
 # ToDo remove secret and config from global scope
 
-app.secret_key = 'SECRETSECRETSECRET'
+def get_api_key():
+    API_Key = os.environ['GOOGLEBOOKS_KEY']
+    return API_Key
+
+app.secret_key = get_api_key()
 
 # This configuration option makes the Flask interactive debugger
 # more useful (you should remove this line in production though)
@@ -26,10 +31,6 @@ def get_user_from_session() -> User | None:
     else:
         return None
 
-
-def get_api_key():
-    API_Key = os.environ['GOOGLEBOOKS_KEY']
-    return API_Key
 
 
 def is_user_authorized() -> bool:
@@ -111,6 +112,7 @@ def process_login():
 @app.route('/browse')
 def browse():
     """Show browsing homepage."""
+
     user_object = get_user_from_session()
     flash(f"Welcome back, {user_object.user_first_name}!")
     return render_template('browse.html', user_first_name=user_object.user_first_name)
