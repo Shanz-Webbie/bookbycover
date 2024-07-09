@@ -7,8 +7,12 @@
   <h2> Welcome back, {{ user_first_name }} !</h2>
   {% endblock %}
   {% block body %}
-
-  <html>
+  {% for book in books %}
+    <p>{{ book.book_title }}</p>
+    <p>{{ book.author_name }}</p>
+    <p><img class="poster" src="{{ book.book_image }}"></p><br>
+  {% endfor %}
+  <!-- <html>
   <head>
     <title>Books API Example</title>
   </head>
@@ -39,5 +43,5 @@
 
     google.books.setOnLoadCallback(initialize);
   </script>
-    <div id="viewerCanvas" style="width: 600px; height: 500px"></div>
+    <div id="viewerCanvas" style="width: 600px; height: 500px"></div> -->
     {% endblock %}

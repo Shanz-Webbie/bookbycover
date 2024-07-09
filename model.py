@@ -28,9 +28,9 @@ class Book(db.Model):
 
     book_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     book_title = db.Column(db.String)
-    # book_image = db.Column(db.Image)
     author_name = db.Column(db.String)
     publish_date = db.Column(db.String)
+    book_image = db.Column(db.String)
 
     favorites = db.relationship("Favorite", back_populates="book")
     bookgenre = db.relationship("BookGenre", back_populates="book")

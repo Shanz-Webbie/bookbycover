@@ -116,7 +116,8 @@ def browse():
 
     user_object = get_user_from_session()
     flash(f"Welcome back, {user_object.user_first_name}!")
-    return render_template('browse.html', user_first_name=user_object.user_first_name)
+    books = crud.get_books()
+    return render_template('browse.html', user_first_name=user_object.user_first_name, books=books)
 
 @app.route('/favorites')
 def favorites():
