@@ -1,5 +1,5 @@
 import json
-from flask import Flask, render_template, request, redirect, flash, session, abort
+from flask import Flask, render_template, request, redirect, flash, session, abort, jsonify
 from model import User, connect_to_db, db
 import crud
 from jinja2 import StrictUndefined
@@ -125,13 +125,29 @@ def favorites():
 
     return render_template('favorites.html')
 
-@app.route('/search')
-def search_books():
-    """Search and display relevant books."""
+@app.route('/books.json')
+def get_book_by_title():
+    """Return a book-info dictionary for this title."""
+    json_file = open('data/books.json')
+    json_data = json_file.read()
+    title = request.args.get('title')
+    title_info = json_data.get(title)
+    return jsonify(title_info)
 
-    dict_obj = {"hello": "world"}
-    json_str = json.dumps(dict_obj)
-    return json_str
+
+
+# @app.route('/search')
+# def search_books():
+#     """Search and display relevant books."""
+
+#     json_file = open('data/books.json')
+#     json_data = json_file.read()
+#     json_obj = json.loads(json_data)
+#     json_str = json.dumps(json_obj)
+#     return json_str
+#     # dict_obj = {"hello": "world"}
+#     # json_str = json.dumps(dict_obj)
+#     # return json_str
 
 if __name__ == '__main__':
     connect_to_db(app)

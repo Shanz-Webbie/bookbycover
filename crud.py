@@ -57,6 +57,7 @@ def get_books():
 
     return Book.query.all()
 
+
 def get_book_by_id(book_id):
     """Return a book by primary key."""
 

@@ -9,15 +9,24 @@
 
   {% endblock %}
   {% block body %}
-  <label for="bookSearch">Search Books:</label>
-  <input type="search" id="bookSearch" name="bookSearch" placeholder="Title"/>
-  <button id="searchButton">Search</button>
-  <div id="search_results"></div>
+  <label for="title-field">Search Books:</label>
+<form id="title-form">
+  <div class="form-group">
+    <input class="form-control" type="search" id="title-field" name="title" placeholder="Title"/>
+  </div>
+  <div class="form-group">
+    <button id="search-button" type="submit">Search</button>
+  </div>
+</form>
+  <div id="search-results">Search results:</div>
   {% for book in books %}
     <p>{{ book.book_title }}</p>
     <p>{{ book.author_name }}</p>
     <p><img class="poster" src="{{ book.book_image }}"></p><br>
   {% endfor %}
+
+  <script src="/static/main.js"></script>
+
 
   <!-- <html>
   <head>
