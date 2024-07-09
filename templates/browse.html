@@ -3,15 +3,22 @@
 {% block title %} Browse Books {% endblock %}
 
   <h1>Search books</h1>
+
   {% block head %}
   <h2> Welcome back, {{ user_first_name }} !</h2>
+
   {% endblock %}
   {% block body %}
+  <label for="bookSearch">Search Books:</label>
+  <input type="search" id="bookSearch" name="bookSearch" placeholder="Title"/>
+  <button id="searchButton">Search</button>
+  <div id="search_results"></div>
   {% for book in books %}
     <p>{{ book.book_title }}</p>
     <p>{{ book.author_name }}</p>
     <p><img class="poster" src="{{ book.book_image }}"></p><br>
   {% endfor %}
+
   <!-- <html>
   <head>
     <title>Books API Example</title>
