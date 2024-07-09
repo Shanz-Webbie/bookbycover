@@ -1,3 +1,4 @@
+import json
 from flask import Flask, render_template, request, redirect, flash, session, abort
 from model import User, connect_to_db, db
 import crud
@@ -123,7 +124,13 @@ def favorites():
 
     return render_template('favorites.html')
 
+@app.route('/search')
+def search_books():
+    """Search and display relevant books."""
 
+    dict_obj = {"hello": "world"}
+    json_str = json.dumps(dict_obj)
+    return json_str
 
 if __name__ == '__main__':
     connect_to_db(app)

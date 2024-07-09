@@ -26,11 +26,11 @@ def get_user_by_email(email):
 
     return User.query.filter(User.user_email == email).first()
 
-def create_book(title, author, publish_date, genre_name, is_fiction):
+def create_book(book_title, author_name, publish_date, genre_name, is_fiction):
     """Create and return a book."""
     book = Book(
-        book_title = title,
-        author_name = author,
+        book_title = book_title,
+        author_name = author_name,
         publish_date = publish_date,
         # book_image = book_image
     )

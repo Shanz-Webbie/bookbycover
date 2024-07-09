@@ -19,15 +19,16 @@ with open("data/books.json") as f:
 
 books_in_db = []
 for book in book_data:
-    title, author_name, publish_date, genre_name, is_fiction = (
-         book["title"],
-        book["author"],
+    book_title, author_name, publish_date, genre_name, is_fiction= (
+        book["book_title"],
+        book["author_name"],
         book["publish_date"],
         book["genre_name"],
-        book["is_fiction"]
+        book["is_fiction"],
+        # book["book_image"]
     )
 
-    db_book = crud.create_book(title, author_name, publish_date, genre_name, is_fiction)
+    db_book = crud.create_book(book_title, author_name, publish_date, genre_name, is_fiction)
     books_in_db.append(db_book)
 
 db.session.add_all(books_in_db)
