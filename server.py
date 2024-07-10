@@ -10,6 +10,7 @@ from pprint import pformat
 import os
 
 
+
 app = Flask(__name__)
 
 # ToDo remove secret and config from global scope
@@ -19,6 +20,11 @@ def get_api_key():
     return API_Key
 
 app.secret_key = get_api_key()
+
+# with open('data/books.json', 'r') as json_file:
+#     books_data = json.load(json_file)
+
+# books = books_data['books']
 
 # This configuration option makes the Flask interactive debugger
 # more useful (you should remove this line in production though)
@@ -131,7 +137,7 @@ def get_book_by_title():
     # open the JSON file
     with open('data/books.json') as json_file:
         json_data = json.load(json_file)
-    # get the input title from the search bar
+        # get the input title from the search bar
     title = request.args.get('title-field')
     # iterate over each book in the JSON file
     for book in json_data:
@@ -142,20 +148,43 @@ def get_book_by_title():
 
     return jsonify(title_info)
 
+    #     json_data = json.loads(json_file.read())
+    # return(render_template("browse.html", jsonify_data=jsonify_data))
 
 
-# @app.route('/search')
-# def search_books():
-#     """Search and display relevant books."""
 
-#     json_file = open('data/books.json')
-#     json_data = json_file.read()
-#     json_obj = json.loads(json_data)
-#     json_str = json.dumps(json_obj)
-#     return json_str
+@app.route('/browse')
+def search_books():
+    """Search and display relevant books."""
+    # get the input title from the search bar
+    # title = request.args.get('title')
+    # found_books = [book for book in books if title in book['title']]
+    # return render_template('browse.html', books=found_books)
+#     # json_file = open('data/books.json')
+#     # json_data = json_file.read()
+#     # json_obj = json.loads(json_data)
+#     # json_str = json.dumps(json_obj)
+#     # return json_str
 #     # dict_obj = {"hello": "world"}
 #     # json_str = json.dumps(dict_obj)
 #     # return json_str
+
+@app.route("/browse/<book_id>/favorite", methods=["POST"])
+def create_favorite(book_id):
+    """Create a new favorite book."""
+    logged_in_email = session.get("user_email")
+    is_favorite = request.form.get("favorite-button")
+    if is_user_authorized:
+        user = crud.get_user_by_email(logged_in_email)
+        book = crud.get_book_by_id(book_id)
+
+        favorite = crud.create_favorite(user, book, is_favorite)
+        db.session.add(favorite)
+        db.session.commit()
+
+        flash(f"Saved the favorite.")
+    return redirect(f"/browse/{book_id}")
+
 
 if __name__ == '__main__':
     connect_to_db(app)

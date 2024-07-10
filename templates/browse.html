@@ -18,11 +18,32 @@
     <button id="search-button" type="submit">Search</button>
   </div>
 </form>
-  <div id="search-results">Search results:</div>
+  <div id="search-results">
+    <!-- <h1>Search results:</h1>
+    <ul>
+      <li>book_title</li>
+      <li>author_name</li>
+      <li>book_image</li>
+    </ul> -->
+  </div>
+  <!-- <div id="test"> Test:   </div>
+    <script>
+
+    title_info = JSON.parse(title_info);
+    var getimage = document.createElement("img");
+    getimage.onload = function() {
+       document.getElementById("test").appendChild(getimage);
+    }
+    getimage.src = title_info.book_image;
+  </script> -->
+
   {% for book in books %}
     <p>{{ book.book_title }}</p>
     <p>{{ book.author_name }}</p>
     <p><img class="poster" src="{{ book.book_image }}"></p><br>
+    <div class="favorite-group">
+      <button id="favorite-button" type="submit">Favorite</button>
+    </div>
   {% endfor %}
 
   <script src="/static/main.js"></script>

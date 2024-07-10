@@ -11,12 +11,49 @@
 function showBook(evt) {
     evt.preventDefault();
     const url = '/books.json';
+    // const requestedBooks = new Request("books.json")
     const book_title = document.querySelector('#title-field').value;
     console.log('Success!')
     fetch(`/books.json?${book_title}`)
-        .then((response) => response.text())
-        .then((title) => {
-            document.querySelector('#search-results').innerHTML = title});
+        .then((response) => response.json())
+        .then((searchedBooks) => {
+
+            document.querySelector('#search-results').innerHTML= searchedBooks});
+
+
+        };
+
+    document.querySelector('#title-form').addEventListener('submit', showBook);
+
+
+function addFavorites(evt){
+    console.log("Test")
+    evt.preventDefault();
+    // fetch('/browse/<book_id>/favorite')
+
 }
 
-document.querySelector('#title-form').addEventListener('submit', showBook);
+    document.querySelector('#favorite-button').addEventListener('click', addFavorites);
+
+                // // let placeholder = document.querySelector('#search-results');
+            // let out = "";
+            // for (let book of searchedBooks){
+            //     out += `
+            //     <p><img src='${book.book_image}'</p><br>
+
+            //     `;
+            // }
+            // for(const title of title.books ) {
+            //     const listBook = document.createElement("strong").textContent =
+            //     title.book_title;
+            //     listItem.append(` Here are your search results ${title.book_title}`);
+            //     // listItem.appendChild(document.createElement("strong")).textContent =
+            //     //   `£${product.Price}`;
+            //     // myList.appendChild(listItem);
+            //   }
+            // })
+            // let jsonobj=JSON.parse()
+            // console.log(jsonobj)
+            // document.querySelector('#search-results')
+            // document.getElementById("title").innerHTML = `Title: ${response.book_title}`});
+            // document.querySelector('#search-results').innerHTML= JSON.stringify(title)});
