@@ -128,10 +128,18 @@ def favorites():
 @app.route('/books.json')
 def get_book_by_title():
     """Return a book-info dictionary for this title."""
-    json_file = open('data/books.json')
-    json_data = json_file.read()
-    title = request.args.get('title')
-    title_info = json_data.get(title)
+    # open the JSON file
+    with open('data/books.json') as json_file:
+        json_data = json.load(json_file)
+    # get the input title from the search bar
+    title = request.args.get('title-field')
+    # iterate over each book in the JSON file
+    for book in json_data:
+        # if the book title matches what was input
+        if book.get('title') == title:
+            title_info = book
+            break
+
     return jsonify(title_info)
 
 
