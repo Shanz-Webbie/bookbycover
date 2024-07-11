@@ -17,11 +17,18 @@ function showBook(evt) {
     fetch(`/books.json?${book_title}`)
         .then((response) => response.json())
         .then((searchedBooks) => {
+            console.log(searchedBooks)
+            const searchResultsDiv = document.querySelector('#search-results');
+            searchedBooks.forEach(book => {
+                console.log(book)
+                searchResultsDiv.innerHTML = `<h3>${book.book_title}</h3><p>${book.author_name}</p>`;
+            });
 
-            document.querySelector('#search-results').innerHTML= searchedBooks});
+            // document.querySelector('#search-results').innerHTML= searchedBooks});
 
 
-        };
+        });
+}
 
     document.querySelector('#title-form').addEventListener('submit', showBook);
 

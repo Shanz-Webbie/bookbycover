@@ -146,7 +146,7 @@ def get_book_by_title():
             title_info = book
             break
 
-    return jsonify(title_info)
+    return jsonify([title_info])
 
     #     json_data = json.loads(json_file.read())
     # return(render_template("browse.html", jsonify_data=jsonify_data))
