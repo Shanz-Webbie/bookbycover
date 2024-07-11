@@ -21,7 +21,7 @@ function showBook(evt) {
             const searchResultsDiv = document.querySelector('#search-results');
             searchedBooks.forEach(book => {
                 console.log(book)
-                searchResultsDiv.innerHTML = `<h3>${book.book_title}</h3><p>${book.author_name}</p>`;
+                searchResultsDiv.innerHTML = `<h3>${book.book_title}</h3><p>${book.author_name}</p><p><img class="poster" src='${book.book_image}'</p>`;
             });
 
             // document.querySelector('#search-results').innerHTML= searchedBooks});
@@ -34,6 +34,7 @@ function showBook(evt) {
 
 
 function addFavorites(evt){
+    // To Do : add "not implemented" alert
     console.log("Test")
     evt.preventDefault();
     // fetch('/browse/<book_id>/favorite')
