@@ -1,6 +1,6 @@
 import json
 from flask import Flask, render_template, request, redirect, flash, session, abort, jsonify
-from model import User, connect_to_db, db
+from model import User, Book, connect_to_db, db
 import crud
 from jinja2 import StrictUndefined
 
@@ -13,7 +13,6 @@ import os
 
 app = Flask(__name__)
 
-# ToDo remove secret and config from global scope
 
 def get_api_key():
     API_Key = os.environ['GOOGLEBOOKS_KEY']
@@ -21,10 +20,6 @@ def get_api_key():
 
 app.secret_key = get_api_key()
 
-# with open('data/books.json', 'r') as json_file:
-#     books_data = json.load(json_file)
-
-# books = books_data['books']
 
 # This configuration option makes the Flask interactive debugger
 # more useful (you should remove this line in production though)
@@ -131,43 +126,35 @@ def favorites():
 
     return render_template('favorites.html')
 
-@app.route('/books.json')
+@app.route('/books.json', methods=["POST", "GET"])
 def get_book_by_title():
     """Return a book-info dictionary for this title."""
-    # open the JSON file
+    # # open the JSON file
     with open('data/books.json') as json_file:
         json_data = json.load(json_file)
-        # get the input title from the search bar
-    title = request.args.get('title-field')
-    # iterate over each book in the JSON file
+
+    title = request.args.get("title")
+
+
+    # db_books = Book.query.filter(Book.book_title.ilike(f"%{title}%")).all()
+    # start an empty list to store the matching books
+
+
+    matching_books = []
+
     for book in json_data:
         # if the book title matches what was input
-        if book.get('title') == title:
-            title_info = book
-            break
-
-    return jsonify([title_info])
-
-    #     json_data = json.loads(json_file.read())
-    # return(render_template("browse.html", jsonify_data=jsonify_data))
+        if book.get('book_title') == title:
+            matching_books.append({
+                'book_title': book["book_title"],
+                'author_name':book["author_name"],
+                'book_image': book["book_image"]
+            })
 
 
+    return jsonify(matching_books)
 
-@app.route('/browse')
-def search_books():
-    """Search and display relevant books."""
-    # get the input title from the search bar
-    # title = request.args.get('title')
-    # found_books = [book for book in books if title in book['title']]
-    # return render_template('browse.html', books=found_books)
-#     # json_file = open('data/books.json')
-#     # json_data = json_file.read()
-#     # json_obj = json.loads(json_data)
-#     # json_str = json.dumps(json_obj)
-#     # return json_str
-#     # dict_obj = {"hello": "world"}
-#     # json_str = json.dumps(dict_obj)
-#     # return json_str
+
 
 @app.route("/browse/<book_id>/favorite", methods=["POST"])
 def create_favorite(book_id):

@@ -14,17 +14,16 @@ function showBook(evt) {
     // const requestedBooks = new Request("books.json")
     const book_title = document.querySelector('#title-field').value;
     console.log('Success!')
-    fetch(`/books.json?${book_title}`)
+    fetch(`/books.json?title=${book_title}`)
         .then((response) => response.json())
         .then((searchedBooks) => {
             console.log(searchedBooks)
             const searchResultsDiv = document.querySelector('#search-results');
             searchedBooks.forEach(book => {
                 console.log(book)
-                searchResultsDiv.innerHTML = `<h3>${book.book_title}</h3><p>${book.author_name}</p><p><img class="poster" src='${book.book_image}'</p>`;
-            });
+                searchResultsDiv.innerHTML = `<h2>Search Results:</h2><h3>${book.book_title}</h3><p>${book.author_name}</p><p><img class="poster" src='${book.book_image}'/></p>`;
 
-            // document.querySelector('#search-results').innerHTML= searchedBooks});
+            });
 
 
         });
@@ -42,26 +41,3 @@ function addFavorites(evt){
 }
 
     document.querySelector('#favorite-button').addEventListener('click', addFavorites);
-
-                // // let placeholder = document.querySelector('#search-results');
-            // let out = "";
-            // for (let book of searchedBooks){
-            //     out += `
-            //     <p><img src='${book.book_image}'</p><br>
-
-            //     `;
-            // }
-            // for(const title of title.books ) {
-            //     const listBook = document.createElement("strong").textContent =
-            //     title.book_title;
-            //     listItem.append(` Here are your search results ${title.book_title}`);
-            //     // listItem.appendChild(document.createElement("strong")).textContent =
-            //     //   `£${product.Price}`;
-            //     // myList.appendChild(listItem);
-            //   }
-            // })
-            // let jsonobj=JSON.parse()
-            // console.log(jsonobj)
-            // document.querySelector('#search-results')
-            // document.getElementById("title").innerHTML = `Title: ${response.book_title}`});
-            // document.querySelector('#search-results').innerHTML= JSON.stringify(title)});
