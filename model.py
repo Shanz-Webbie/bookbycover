@@ -35,6 +35,10 @@ class Book(db.Model):
     favorites = db.relationship("Favorite", back_populates="book")
     bookgenre = db.relationship("BookGenre", back_populates="book")
 
+    def as_dict(self):
+        """source: https://stackoverflow.com/questions/5022066/how-to-serialize-sqlalchemy-result-to-json"""
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
     def __repr__(self):
         return f"<Book book_id={self.book_id} book_title={self.book_title} author_name={self.author_name}>"
 

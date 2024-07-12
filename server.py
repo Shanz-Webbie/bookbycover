@@ -107,9 +107,9 @@ def process_login():
         flash("Success!")
         return redirect("/browse")
     else:
+        # source: https://flask.palletsprojects.com/en/3.0.x/errorhandling/
         flash("The email or password you entered was incorrect.")
         return abort(400)
-
 
 @app.route('/browse')
 def browse():
@@ -129,31 +129,17 @@ def favorites():
 @app.route('/books.json', methods=["POST", "GET"])
 def get_book_by_title():
     """Return a book-info dictionary for this title."""
-    # # open the JSON file
-    with open('data/books.json') as json_file:
-        json_data = json.load(json_file)
 
+    # get searched title from form
     title = request.args.get("title")
 
-
-    # db_books = Book.query.filter(Book.book_title.ilike(f"%{title}%")).all()
-    # start an empty list to store the matching books
-
-
-    matching_books = []
-
-    for book in json_data:
-        # if the book title matches what was input
-        if book.get('book_title') == title:
-            matching_books.append({
-                'book_title': book["book_title"],
-                'author_name':book["author_name"],
-                'book_image': book["book_image"]
-            })
+    # query the database for books with a matching title
+    db_books: list[Book] = Book.query.filter(Book.book_title.ilike(f"%{title}%")).all()
+    # convert all the db books into a dictionary
+    matching_books_dict = [book.as_dict() for book in db_books]
 
 
-    return jsonify(matching_books)
-
+    return jsonify(matching_books_dict)
 
 
 @app.route("/browse/<book_id>/favorite", methods=["POST"])
