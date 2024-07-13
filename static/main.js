@@ -1,13 +1,4 @@
 
-// const searchInput = document.getElementById('bookSearch');
-// const searchButton = document.getElementById('searchButton');
-
-// searchButton.addEventListener('click', function(){
-//     const searchQuery = searchInput.value;
-//     console.log(`Searching for '${searchQuery}'...`);
-
-// });
-
 function showBook(evt) {
     evt.preventDefault();
     const url = '/books.json';
@@ -19,8 +10,11 @@ function showBook(evt) {
         .then((searchedBooks) => {
             console.log(searchedBooks)
             const searchResultsDiv = document.querySelector('#search-results');
+            // source: https://www.sitepoint.com/loop-through-json-response-javascript/
             searchedBooks.forEach(book => {
                 console.log(book)
+                // source: https://www.digitalocean.com/community/tutorials/how-to-add-javascript-to-html
+                // https://www.geeksforgeeks.org/how-to-append-html-code-to-a-div-using-javascript/
                 searchResultsDiv.innerHTML = `<h2>Search Results:</h2><h3>${book.book_title}</h3><p>${book.author_name}</p><p><img class="poster" src='${book.book_image}'/></p>`;
 
             });

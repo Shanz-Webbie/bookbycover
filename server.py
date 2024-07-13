@@ -5,10 +5,8 @@ import crud
 from jinja2 import StrictUndefined
 
 
-
 from pprint import pformat
 import os
-
 
 
 app = Flask(__name__)
@@ -18,7 +16,7 @@ def get_api_key():
     API_Key = os.environ['GOOGLEBOOKS_KEY']
     return API_Key
 
-app.secret_key = get_api_key()
+# app.secret_key = get_api_key()
 
 
 # This configuration option makes the Flask interactive debugger
@@ -46,15 +44,10 @@ def is_user_authorized() -> bool:
 
 @app.route('/')
 def homepage():
-    """Show homepage."""
-    # if user in session
-        # return redirect "browse"
-    # else return redirect "login"
 
     if is_user_authorized():
         return redirect("/browse")
-    else:
-        return redirect("/login")
+    return redirect("/login")
 
 
 @app.route("/signup")
