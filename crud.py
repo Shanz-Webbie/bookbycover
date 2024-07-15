@@ -73,7 +73,7 @@ def get_genre_by_id(genre_id):
 
     return Genre.query.get(genre_id)
 
-def create_favorite(user, book):
+def create_favorite(user: User, book: Book) -> Favorite:
     """Create and return a favorited book object."""
 
     favorite_obj = Favorite(user=user, book=book)
@@ -91,7 +91,17 @@ def get_favorite_by_id(favorite_id):
 def delete_a_favorite(favorite):
     """ Delete a favorite. """
     db.session.delete(favorite)
+    db.session.commit()
 
+def delete_a_book(book):
+    """ Delete a book. """
+    db.session.delete(book)
+    db.session.commit()
+
+def delete_a_user(user):
+    """ Delete a user. """
+    db.session.delete(user)
+    db.session.commit()
 
 if __name__ == "__main__":
     from server import app

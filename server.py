@@ -136,20 +136,30 @@ def get_book_by_title():
 
 
 @app.route("/browse/<book_id>/favorite", methods=["POST"])
-def create_favorite(book_id):
-    """Create a new favorite book."""
-    logged_in_email = session.get("user_email")
-    is_favorite = request.form.get("favorite-button")
+def create_a_favorite(user_id: int, book_id: int):
     if is_user_authorized:
-        user = crud.get_user_by_email(logged_in_email)
+        user = crud.get_user_by_id(user_id)
         book = crud.get_book_by_id(book_id)
+        crud.create_favorite(user=user, book=book)
+    else:
+        raise NotImplementedError
 
-        favorite = crud.create_favorite(user, book, is_favorite)
-        db.session.add(favorite)
-        db.session.commit()
 
-        flash(f"Saved the favorite.")
-    return redirect(f"/browse/{book_id}")
+# @app.route("/browse/<book_id>/favorite", methods=["POST"])
+# def create_favorite(book_id):
+#     """Create a new favorite book."""
+#     logged_in_email = session.get("user_email")
+#     is_favorite = request.form.get("favorite-button")
+#     if is_user_authorized:
+#         user = crud.get_user_by_email(logged_in_email)
+#         book = crud.get_book_by_id(book_id)
+
+#         favorite = crud.create_favorite(user, book, is_favorite)
+#         db.session.add(favorite)
+#         db.session.commit()
+
+#         flash(f"Saved the favorite.")
+#     return redirect(f"/browse/{book_id}")
 
 
 if __name__ == '__main__':
