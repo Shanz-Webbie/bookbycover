@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
-
 {% block title %} Browse Books {% endblock %}
-
   <h1>Search books</h1>
-
   {% block head %}
   <h2> Welcome back, {{ user_first_name }} !</h2>
 
@@ -21,11 +18,9 @@
   </div>
 </form>
   <div id="search-results">
-
   </div>
   <!-- <div id="test"> Test:   </div>
     <script>
-
     title_info = JSON.parse(title_info);
     var getimage = document.createElement("img");
     getimage.onload = function() {
@@ -42,10 +37,7 @@
       <button id="favorite-button" type="submit">Favorite</button>
     </div>
   {% endfor %}
-
   <script src="/static/main.js"></script>
-
-
   <!-- <html>
   <head>
     <title>Books API Example</title>
@@ -60,21 +52,17 @@
         document.getElementById("content").innerHTML += "<br>" + item.volumeInfo.title;
       }
     }
-
     </script>
     <script src="https://www.googleapis.com/books/v1/volumes?q=harry+potter&callback=handleResponse"></script>
   </body>
 </html>
-
   <script type="text/javascript" src="https://ww.google.com/books/jsapi.js"></script>
   <script type="text/javascript">
     google.books.load();
-
     function initialize(){
         var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
         viewer.load('ISBN:0738531367');
     }
-
     google.books.setOnLoadCallback(initialize);
   </script>
     <div id="viewerCanvas" style="width: 600px; height: 500px"></div> -->

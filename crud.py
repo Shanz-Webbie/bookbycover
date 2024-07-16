@@ -57,6 +57,11 @@ def get_books():
 
     return Book.query.all()
 
+def get_favoties():
+    """Return all favories."""
+
+    return Favorite.query.all()
+
 
 def get_book_by_id(book_id):
     """Return a book by primary key."""
@@ -88,9 +93,10 @@ def get_favorite_by_id(favorite_id):
 
     return Favorite.query.get(favorite_id)
 
-def delete_a_favorite(favorite):
+def delete_a_favorite(user: User, book: Book) -> Favorite:
     """ Delete a favorite. """
-    db.session.delete(favorite)
+    deleted_favorite_obj = Favorite(user=user, book=book)
+    db.session.delete(deleted_favorite_obj)
     db.session.commit()
 
 def delete_a_book(book):

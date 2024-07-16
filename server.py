@@ -16,11 +16,13 @@ def get_api_key():
     API_Key = os.environ['GOOGLEBOOKS_KEY']
     return API_Key
 
+app.secret_key = 'SECRETSECRETSECRET'
+
 # app.secret_key = get_api_key()
 
 
-# This configuration option makes the Flask interactive debugger
-# more useful (you should remove this line in production though)
+# # This configuration option makes the Flask interactive debugger
+# # more useful (you should remove this line in production though)
 app.config['PRESERVE_CONTEXT_ON_EXCEPTION'] = True
 app.jinja_env.undefined = StrictUndefined
 
@@ -116,8 +118,8 @@ def browse():
 @app.route('/favorites')
 def favorites():
     """Show favorites homepage."""
-
-    return render_template('favorites.html')
+    favorites = crud.get_favoties()
+    return render_template('favorites.html', favorites=favorites)
 
 @app.route('/books.json', methods=["POST", "GET"])
 def get_book_by_title():
@@ -140,7 +142,20 @@ def create_a_favorite(user_id: int, book_id: int):
     if is_user_authorized:
         user = crud.get_user_by_id(user_id)
         book = crud.get_book_by_id(book_id)
-        crud.create_favorite(user=user, book=book)
+        favorite = crud.create_favorite(user=user, book=book)
+        db.session.add(favorite)
+        db.session.commit()
+        flash(f"Saved the favorite.")
+    else:
+        raise NotImplementedError
+def delete_a_favorite(user_id: int, favorite_id: int):
+    if is_user_authorized:
+        user = crud.get_user_by_id(user_id)
+        favorite_id = crud.get_favorite_by_id(favorite_id)
+        favorite = crud.delete_a_favorite(user=user, favorite_id=favorite_id)
+        db.session.remove(favorite)
+        db.session.commit()
+        flash(f"Deleted the favorite.")
     else:
         raise NotImplementedError
 
