@@ -17,6 +17,7 @@ db.create_all()
 with open("data/books.json") as f:
     book_data = json.loads(f.read())
 
+# add in additional data via loop to delete
 books_in_db = []
 for book in book_data:
     book_title, author_name, publish_date, genre_name, is_fiction, book_image = (

@@ -91,6 +91,7 @@ def process_login():
     user_password = request.form.get("user_password")
     user = crud.get_user_by_email(user_email)
 
+# edge: user is logged in but not the same user
 
     if is_user_authorized():
         return redirect("/browse")
@@ -148,12 +149,15 @@ def create_a_favorite(user_id: int, book_id: int):
         flash(f"Saved the favorite.")
     else:
         raise NotImplementedError
-def delete_a_favorite(user_id: int, favorite_id: int):
+@app.route("/browse/<favorite_id>/delete", methods=["POST"])
+# edge: if favorite id is incorrect or favorite user id doesn't match
+def delete_a_favorite(favorite_id: int):
+    print("Test")
     if is_user_authorized:
-        user = crud.get_user_by_id(user_id)
-        favorite_id = crud.get_favorite_by_id(favorite_id)
-        favorite = crud.delete_a_favorite(user=user, favorite_id=favorite_id)
-        db.session.remove(favorite)
+        favorite = crud.get_favorite_by_id(favorite_id)
+        user = crud.get_user_by_email(session["user_email"])
+        favorite = crud.delete_a_favorite(user=user, book_id= favorite.book_id)
+        db.session.delete(favorite)
         db.session.commit()
         flash(f"Deleted the favorite.")
     else:

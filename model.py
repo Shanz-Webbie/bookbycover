@@ -52,7 +52,7 @@ class Favorite(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
     book_id = db.Column(db.Integer, db.ForeignKey("books.book_id"))
     # when was the favorite created
-    created_at = db.Column(db.DateTime)
+    # created_at = db.Column(db.DateTime)
     # # if/when was the favorite deleted
     # deleted_at = db.Column(db.Datetime, nullable=True, default=None)
     user = db.relationship("User", back_populates="favorites")
