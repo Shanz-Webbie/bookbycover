@@ -16,9 +16,9 @@ def get_api_key():
     API_Key = os.environ['GOOGLEBOOKS_KEY']
     return API_Key
 
-app.secret_key = 'SECRETSECRETSECRET'
+# app.secret_key = 'SECRETSECRETSECRET'
 
-# app.secret_key = get_api_key()
+app.secret_key = get_api_key()
 
 
 # # This configuration option makes the Flask interactive debugger
@@ -155,11 +155,9 @@ def delete_a_favorite(favorite_id: int):
     print("Test")
     if is_user_authorized:
         favorite = crud.get_favorite_by_id(favorite_id)
-        user = crud.get_user_by_email(session["user_email"])
-        favorite = crud.delete_a_favorite(user=user, book_id= favorite.book_id)
-        db.session.delete(favorite)
-        db.session.commit()
+        crud.delete_favorite(favorite)
         flash(f"Deleted the favorite.")
+        return 204
     else:
         raise NotImplementedError
 

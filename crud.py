@@ -93,10 +93,9 @@ def get_favorite_by_id(favorite_id):
 
     return Favorite.query.get(favorite_id)
 
-def delete_a_favorite(user: User, book: Book) -> Favorite:
+def delete_favorite(favorite: Favorite):
     """ Delete a favorite. """
-    deleted_favorite_obj = Favorite(user=user, book=book)
-    db.session.delete(deleted_favorite_obj)
+    db.session.delete(favorite)
     db.session.commit()
 
 def delete_a_book(book):
