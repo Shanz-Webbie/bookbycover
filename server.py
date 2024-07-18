@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 
 def get_api_key():
-    API_Key = os.environ['GOOGLEBOOKS_KEY']
+    API_Key = os.getenv('GOOGLEBOOKS_KEY', 'SECRETSECRETSECRET')
     return API_Key
 
 # app.secret_key = 'SECRETSECRETSECRET'
@@ -138,7 +138,7 @@ def get_book_by_title():
     return jsonify(matching_books_dict)
 
 
-@app.route("/browse/<book_id>/favorite", methods=["POST"])
+@app.route("/browse/<favorite_id>/favorite", methods=["POST"])
 def create_a_favorite(user_id: int, book_id: int):
     if is_user_authorized:
         user = crud.get_user_by_id(user_id)

@@ -26,35 +26,24 @@ function showBook(evt) {
     document.querySelector('#title-form').addEventListener('submit', showBook);
 
 
-function addFavorites(evt){
-    // To Do : add "not implemented" alert
-    alert("Favorite saved");
-
-
-
-
-        }
-
-
-
-
-    document.querySelector('#favorite-button').addEventListener('click', addFavorites);
-
-    function showFavorites(evt){
+    function addFavorite(evt){
         // To Do : add "not implemented" alert
-        console.log("Test")
         evt.preventDefault();
+        alert("Favorite saved");
+        // source: https://stackoverflow.com/questions/7822407/why-is-my-alert-showing-more-than-once
+        evt.stopImmediatePropagation();
+        // const favoriteID = document.getElementById('favorite-button')
+        // console.log("Test")
         fetch(`/books.json?favorite=${favorite_id}`)
         .then((response) => response.json())
         .then((favoritedBooks) => {
-            console.log(favoritedBooks)
-            const searchResultsDiv = document.querySelector('#favorite-results');
+            // console.log(favoritedBooks)
             // source: https://www.sitepoint.com/loop-through-json-response-javascript/
-            searchedBooks.forEach(favoritedBook => {
+            favoritedBooks.forEach(favoritedBook => {
                 console.log(favoritedBook)
                 // source: https://www.digitalocean.com/community/tutorials/how-to-add-javascript-to-html
                 // https://www.geeksforgeeks.org/how-to-append-html-code-to-a-div-using-javascript/
-                searchResultsDiv.innerHTML = `<h2>Favorites</h2><h3>${book.book_title}</h3><p>${book.author_name}</p><p><img class="poster" src='${book.book_image}'/></p>`;
+                favoriteResultsDiv.innerHTML = `<h2>Favorites</h2><h3>${favoritedBook.book_title}</h3><p>${favoritedBook.author_name}</p><p><img class="poster" src='${favoritedBook.book_image}'/></p>`;
 
             });
 
@@ -62,6 +51,33 @@ function addFavorites(evt){
         });
     }
 
+    document.querySelector('#favorite-button').addEventListener('click', addFavorite);
+
+    function removeFavorite(evt){
+        // To Do : add "not implemented" alert
+        evt.preventDefault();
+        alert("Favorite removed");
+        // source: https://stackoverflow.com/questions/7822407/why-is-my-alert-showing-more-than-once
+        evt.stopImmediatePropagation();
+        // console.log("Test")
+        fetch(`/books.json?favorite=${favorite_id}`)
+        .then((response) => response.json())
+        .then((favoritedBooks) => {
+            // console.log(favoritedBooks)
+            // source: https://www.sitepoint.com/loop-through-json-response-javascript/
+            favoritedBooks.forEach(favoritedBook => {
+                console.log(favoritedBook)
+                // source: https://www.digitalocean.com/community/tutorials/how-to-add-javascript-to-html
+                // https://www.geeksforgeeks.org/how-to-append-html-code-to-a-div-using-javascript/
+                favoriteResultsDiv.innerHTML = `<h2>Favorites</h2><h3>${favoritedBook.book_title}</h3><p>${favoritedBook.author_name}</p><p><img class="poster" src='${favoritedBook.book_image}'/></p>`;
+
+            });
+
+
+        });
+    }
+
+    document.querySelector('#remove-favorite-button').addEventListener('click', removeFavorite);
 
     // // source: https://www.basedash.com/blog/how-to-create-a-toggle-button-in-javascript
 

@@ -34,10 +34,13 @@
     <p>{{ book.author_name }}</p>
     <p><img class="poster" src="{{ book.book_image }}"></p><br>
     <div class="favorite-group">
-      <button id="favorite-button" type="submit">Favorite</button>
+
+      <script src="/static/main.js"></script>
+
+      <button id="favorite-button" onclick="create_a_favorite()">Favorite</button>
+      <button id="remove-favorite-button" onclick="delete_a_favorite()">Remove Favorite</button>
     </div>
   {% endfor %}
-  <script src="/static/main.js"></script>
   <!-- <html>
   <head>
     <title>Books API Example</title>
