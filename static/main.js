@@ -28,6 +28,7 @@ function showBook(evt) {
 
     function addFavorite(evt){
         // To Do : add "not implemented" alert
+        console.log("Test")
         evt.preventDefault();
         alert("Favorite saved");
         // source: https://stackoverflow.com/questions/7822407/why-is-my-alert-showing-more-than-once
@@ -50,8 +51,6 @@ function showBook(evt) {
 
         });
     }
-
-    document.querySelector('#favorite-button').addEventListener('click', addFavorite);
 
     function removeFavorite(evt){
         // To Do : add "not implemented" alert
@@ -76,8 +75,21 @@ function showBook(evt) {
 
         });
     }
+    // source: https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event
+    document.addEventListener('DOMContentLoaded', () => {
+        // source: https://stackoverflow.com/questions/12330086/how-to-loop-through-selected-elements-with-document-queryselectorall
+        document.querySelectorAll('.favorite-button').forEach(button =>{
+        button.addEventListener('click', addFavorite);
 
-    document.querySelector('#remove-favorite-button').addEventListener('click', removeFavorite);
+    });
+
+        document.querySelectorAll('.remove-favorite-button').forEach(button =>{
+        button.addEventListener('click', removeFavorite);
+
+    });
+
+});
+
 
     // // source: https://www.basedash.com/blog/how-to-create-a-toggle-button-in-javascript
 
