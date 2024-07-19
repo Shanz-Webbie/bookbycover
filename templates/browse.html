@@ -36,14 +36,16 @@
     <div class="favorite-group">
 
 
-      <button class="favorite-button" onclick="create_a_favorite()">Favorite</button>
-      <button class="remove-favorite-button" onclick="delete_a_favorite()">Remove Favorite</button>
+      <button class="favorite-button" data-book-id="1">Favorite</button>
+      <button class="remove-favorite-button" data-book-id="1">Remove Favorite</button>
 
-      <script src="/static/main.js"></script>
+
 
 
     </div>
+
   {% endfor %}
+  <script src="/static/main.js"></script>
   <!-- <html>
   <head>
     <title>Books API Example</title>

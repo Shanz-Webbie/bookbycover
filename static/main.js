@@ -29,13 +29,13 @@ function showBook(evt) {
     function addFavorite(evt){
         // To Do : add "not implemented" alert
         console.log("Test")
-        evt.preventDefault();
         alert("Favorite saved");
         // source: https://stackoverflow.com/questions/7822407/why-is-my-alert-showing-more-than-once
-        evt.stopImmediatePropagation();
+        const delFavButton = evt.target;
+        const favorite_id = delFavButton.dataset.bookId;
         // const favoriteID = document.getElementById('favorite-button')
         // console.log("Test")
-        fetch(`/books.json?favorite=${favorite_id}`)
+        fetch(`/favorites?${favorite_id}`)
         .then((response) => response.json())
         .then((favoritedBooks) => {
             // console.log(favoritedBooks)
@@ -52,14 +52,16 @@ function showBook(evt) {
         });
     }
 
+    // fetch(`/books.json?favorite=${favorite_id}`)
     function removeFavorite(evt){
         // To Do : add "not implemented" alert
-        evt.preventDefault();
         alert("Favorite removed");
         // source: https://stackoverflow.com/questions/7822407/why-is-my-alert-showing-more-than-once
         evt.stopImmediatePropagation();
         // console.log("Test")
-        fetch(`/books.json?favorite=${favorite_id}`)
+        const favButton = evt.target;
+        const favorite_id = favButton.dataset.bookId;
+        fetch(`/favorites?${favorite_id}`)
         .then((response) => response.json())
         .then((favoritedBooks) => {
             // console.log(favoritedBooks)

@@ -1,5 +1,5 @@
 import json
-from flask import Flask, render_template, request, redirect, flash, session, abort, jsonify
+from flask import Flask, Response, render_template, request, redirect, flash, session, abort, jsonify
 from model import User, Book, connect_to_db, db
 import crud
 from jinja2 import StrictUndefined
@@ -137,8 +137,8 @@ def get_book_by_title():
 
     return jsonify(matching_books_dict)
 
-
-@app.route("/browse/<favorite_id>/favorite", methods=["POST"])
+# /browse/<favorite_id>/favorite
+@app.route("/favorites/<favorite_id>", methods=["POST"])
 def create_a_favorite(user_id: int, book_id: int):
     if is_user_authorized:
         user = crud.get_user_by_id(user_id)
@@ -149,7 +149,8 @@ def create_a_favorite(user_id: int, book_id: int):
         flash(f"Saved the favorite.")
     else:
         raise NotImplementedError
-@app.route("/browse/<favorite_id>/delete", methods=["POST"])
+# /browse/<favorite_id>/delete
+@app.route("/favorites/<favorite_id>", methods=["DELETE"])
 # edge: if favorite id is incorrect or favorite user id doesn't match
 def delete_a_favorite(favorite_id: int):
     print("Test")
@@ -157,7 +158,8 @@ def delete_a_favorite(favorite_id: int):
         favorite = crud.get_favorite_by_id(favorite_id)
         crud.delete_favorite(favorite)
         flash(f"Deleted the favorite.")
-        return 204
+        # source: https://stackoverflow.com/questions/24295426/python-flask-intentional-empty-response
+        return Response(status=204)
     else:
         raise NotImplementedError
 
