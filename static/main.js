@@ -32,10 +32,10 @@ function showBook(evt) {
         alert("Favorite saved");
         // source: https://stackoverflow.com/questions/7822407/why-is-my-alert-showing-more-than-once
         const delFavButton = evt.target;
-        const favorite_id = delFavButton.dataset.bookId;
+        const book_id = delFavButton.dataset.bookId;
         // const favoriteID = document.getElementById('favorite-button')
         // console.log("Test")
-        fetch(`/favorites?${favorite_id}`)
+        fetch(`/favorites?${book_id}`)
         .then((response) => response.json())
         .then((favoritedBooks) => {
             // console.log(favoritedBooks)

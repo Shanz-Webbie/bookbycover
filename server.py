@@ -138,10 +138,10 @@ def get_book_by_title():
     return jsonify(matching_books_dict)
 
 # /browse/<favorite_id>/favorite
-@app.route("/favorites/<favorite_id>", methods=["POST"])
-def create_a_favorite(user_id: int, book_id: int):
-    if is_user_authorized:
-        user = crud.get_user_by_id(user_id)
+@app.route("/favorites/<book_id>", methods=["POST"])
+def create_a_favorite(book_id: int):
+    user = get_user_from_session()
+    if user:
         book = crud.get_book_by_id(book_id)
         favorite = crud.create_favorite(user=user, book=book)
         db.session.add(favorite)
@@ -153,8 +153,8 @@ def create_a_favorite(user_id: int, book_id: int):
 @app.route("/favorites/<favorite_id>", methods=["DELETE"])
 # edge: if favorite id is incorrect or favorite user id doesn't match
 def delete_a_favorite(favorite_id: int):
-    print("Test")
-    if is_user_authorized:
+    user = get_user_from_session()
+    if user:
         favorite = crud.get_favorite_by_id(favorite_id)
         crud.delete_favorite(favorite)
         flash(f"Deleted the favorite.")
