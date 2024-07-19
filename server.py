@@ -147,6 +147,7 @@ def create_a_favorite(book_id: int):
         db.session.add(favorite)
         db.session.commit()
         flash(f"Saved the favorite.")
+        return Response(status=200)
     else:
         raise NotImplementedError
 # /browse/<favorite_id>/delete
