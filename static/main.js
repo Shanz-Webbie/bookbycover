@@ -28,31 +28,41 @@ function showBook(evt) {
 
     function addFavorite(evt){
         // To Do : add "not implemented" alert
-        console.log("Test")
         alert("Favorite saved");
         // source: https://stackoverflow.com/questions/7822407/why-is-my-alert-showing-more-than-once
         const favButton = evt.target;
         const book_id = favButton.dataset.bookId;
-        // const favoriteID = document.getElementById('favorite-button')
+        console.log(`book id is: ${book_id}`)
+        // const book_id = document.getElementById('favorite-button')
         // console.log("Test")
+        // source: https://stackoverflow.com/questions/38235715/fetch-reject-promise-and-catch-the-error-if-status-is-not-ok
         fetch(`/favorites/${book_id}`, {
             method: "POST"
         })
-        .then((response) => response.json())
-        .then((favoritedBooks) => {
-            console.log(favoritedBooks)
-            // source: https://www.sitepoint.com/loop-through-json-response-javascript/
-            favoritedBooks.forEach(favoritedBook => {
-                console.log(favoritedBook)
-                // source: https://www.digitalocean.com/community/tutorials/how-to-add-javascript-to-html
-                // https://www.geeksforgeeks.org/how-to-append-html-code-to-a-div-using-javascript/
-                favoriteResultsDiv.innerHTML = `<h2>Favorites</h2><h3>${favoritedBook.book_title}</h3><p>${favoritedBook.author_name}</p><p><img class="poster" src='${favoritedBook.book_image}'/></p>`;
-
+        .then((response) => {
+            console.log("response received")
+            if (! response.ok) {
+                throw new Error('Something went wrong');
+                }
+            })
+            .catch((error) => {
+              console.log(error)
             });
+        }
+        // .then((favoritedBooks) => {
+            // console.log(favoritedBooks)
+            // // source: https://www.sitepoint.com/loop-through-json-response-javascript/
+            // favoritedBooks.forEach(favoritedBook => {
+            //     console.log(favoritedBook)
+            //     // source: https://www.digitalocean.com/community/tutorials/how-to-add-javascript-to-html
+            //     // https://www.geeksforgeeks.org/how-to-append-html-code-to-a-div-using-javascript/
+            //     favoriteResultsDiv.innerHTML = `<h2>Favorites</h2><h3>${favoritedBook.book_title}</h3><p>${favoritedBook.author_name}</p><p><img class="poster" src='${favoritedBook.book_image}'/></p>`;
+
+    //         });
 
 
-        });
-    }
+    //     });
+    // }
 
     // fetch(`/books.json?favorite=${favorite_id}`)
     function removeFavorite(evt){
@@ -61,8 +71,9 @@ function showBook(evt) {
         // source: https://stackoverflow.com/questions/7822407/why-is-my-alert-showing-more-than-once
         evt.stopImmediatePropagation();
         // console.log("Test")
-        const delFavButton = evt.target;
-        const favorite_id = delFavButton.dataset.bookId;
+        const favorite_id = document.getElementById('del-favorite-button')
+        // const delFavButton = evt.target;
+        // const favorite_id = delFavButton.dataset.bookId;
         fetch(`/favorites?${favorite_id}`)
         .then((response) => response.json())
         .then((favoritedBooks) => {
@@ -87,7 +98,7 @@ function showBook(evt) {
 
     });
 
-        document.querySelectorAll('.remove-favorite-button').forEach(button =>{
+        document.querySelectorAll('.del-favorite-button').forEach(button =>{
         button.addEventListener('click', removeFavorite);
 
     });

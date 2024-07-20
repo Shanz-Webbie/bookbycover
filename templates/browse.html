@@ -32,12 +32,13 @@
   {% for book in books %}
     <p>{{ book.book_title }}</p>
     <p>{{ book.author_name }}</p>
-    <p><img class="poster" src="{{ book.book_image }}"></p><br>
+    <p><img class="poster" src="{{ book.book_image }}"></p>
+    <br>
     <div class="favorite-group">
 
 
-      <button class="favorite-button" data-book-id="2">Favorite</button>
-      <button class="remove-favorite-button" data-book-id="1">Remove Favorite</button>
+      <button class="favorite-button" data-book-id="{{ book.book_id }}">Favorite</button>
+      <button class="del-favorite-button">Remove Favorite</button>
 
 
 
