@@ -35,19 +35,10 @@ def get_user_from_session() -> User | None:
 
 
 
-def is_user_authorized() -> bool:
-    """Verify if user is authorized."""
-
-    user = get_user_from_session()
-    if user:
-        return True
-    else:
-        return False
-
 @app.route('/')
 def homepage():
 
-    if is_user_authorized():
+    if get_user_from_session():
         return redirect("/browse")
     return redirect("/login")
 
@@ -74,13 +65,10 @@ def register_user():
         return redirect("/login")
 
 
-
-
 @app.route("/login")
 def show_login_page():
     """Show login page."""
     return render_template("login.html")
-
 
 
 @app.route("/login", methods=["POST", "GET"])
@@ -93,7 +81,7 @@ def process_login():
 
 # edge: user is logged in but not the same user
 
-    if is_user_authorized():
+    if get_user_from_session():
         return redirect("/browse")
     if not user:
         return redirect("/signup")
@@ -119,7 +107,7 @@ def browse():
 @app.route('/favorites')
 def favorites():
     """Show favorites homepage."""
-    if not is_user_authorized():
+    if not get_user_from_session():
         return Response(status=401)
     user = get_user_from_session()
     favorites = crud.get_favorite_books_for_a_given_user(user)
@@ -168,22 +156,6 @@ def delete_a_favorite(favorite_id: int):
     else:
         raise NotImplementedError
 
-
-# @app.route("/browse/<book_id>/favorite", methods=["POST"])
-# def create_favorite(book_id):
-#     """Create a new favorite book."""
-#     logged_in_email = session.get("user_email")
-#     is_favorite = request.form.get("favorite-button")
-#     if is_user_authorized:
-#         user = crud.get_user_by_email(logged_in_email)
-#         book = crud.get_book_by_id(book_id)
-
-#         favorite = crud.create_favorite(user, book, is_favorite)
-#         db.session.add(favorite)
-#         db.session.commit()
-
-#         flash(f"Saved the favorite.")
-#     return redirect(f"/browse/{book_id}")
 
 
 if __name__ == '__main__':
