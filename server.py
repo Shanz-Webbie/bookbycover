@@ -107,9 +107,9 @@ def browse():
 @app.route('/favorites')
 def favorites():
     """Show favorites homepage."""
-    if not get_user_from_session():
-        return Response(status=401)
     user = get_user_from_session()
+    if not user:
+        return Response(status=401)
     favorites = crud.get_favorite_books_for_a_given_user(user)
     return render_template('favorites.html', favorites=favorites)
 
@@ -138,7 +138,6 @@ def create_a_favorite(book_id: int):
         favorite = crud.create_favorite(user=user, book=book)
         db.session.add(favorite)
         db.session.commit()
-        flash(f"Saved the favorite.")
         return Response(status=200)
     else:
         raise NotImplementedError
@@ -150,7 +149,6 @@ def delete_a_favorite(favorite_id: int):
     if user:
         favorite = crud.get_favorite_by_id(favorite_id)
         crud.delete_favorite(favorite)
-        flash(f"Deleted the favorite.")
         # source: https://stackoverflow.com/questions/24295426/python-flask-intentional-empty-response
         return Response(status=204)
     else:
