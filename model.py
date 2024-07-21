@@ -1,5 +1,6 @@
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.schema import PrimaryKeyConstraint
 
 db = SQLAlchemy()
 
@@ -48,18 +49,17 @@ class Favorite(db.Model):
 
     __tablename__ = "favorites"
 
-    favorite_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
-    book_id = db.Column(db.Integer, db.ForeignKey("books.book_id"))
-    # when was the favorite created
-    # created_at = db.Column(db.DateTime)
-    # # if/when was the favorite deleted
-    # deleted_at = db.Column(db.Datetime, nullable=True, default=None)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), primary_key = True)
+    book_id = db.Column(db.Integer, db.ForeignKey("books.book_id"), primary_key = True)
+
+    # source: https://medium.com/@thinesh12/unlocking-the-power-of-composite-primary-keys-in-sqlalchemy-b378fb975e9b
+    __table_args__ = ( PrimaryKeyConstraint('user_id', 'book_id'),)
+
     user = db.relationship("User", back_populates="favorites")
     book = db.relationship("Book", back_populates="favorites")
 
     def __repr__(self):
-        return f"<Favorite favorite_id={self.favorite_id}>"
+        return f"<Favorite book_id={self.book_id} user_id={self.user_id}>"
 
 
 class BookGenre(db.Model):

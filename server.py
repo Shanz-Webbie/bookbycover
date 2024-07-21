@@ -129,7 +129,7 @@ def get_book_by_title():
 
     return jsonify(matching_books_dict)
 
-# /browse/<favorite_id>/favorite
+
 @app.route("/favorites/<book_id>", methods=["POST"])
 def create_a_favorite(book_id: int):
     user = get_user_from_session()
@@ -141,7 +141,7 @@ def create_a_favorite(book_id: int):
         return Response(status=200)
     else:
         raise NotImplementedError
-# /browse/<favorite_id>/delete
+
 @app.route("/favorites/<book_id>/delete", methods=["DELETE"])
 # edge: if favorite id is incorrect or favorite user id doesn't match
 def delete_a_favorite(book_id: int):

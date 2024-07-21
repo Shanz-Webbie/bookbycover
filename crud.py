@@ -61,8 +61,8 @@ def get_favorite_books_for_a_given_user(user: User) -> list[Book]:
     """Return a given users favorite books."""
     matching_favorites = Favorite.query.filter(Favorite.user_id == user.user_id).all()
     book_ids_of_matched_favorites = [favorite.book_id for favorite in matching_favorites]
-    books_that_match_a_given_favorite_id = Book.query.filter(Book.book_id.in_(book_ids_of_matched_favorites)).all()
-    return books_that_match_a_given_favorite_id
+    books_that_match_a_given_book_id = Book.query.filter(Book.book_id.in_(book_ids_of_matched_favorites)).all()
+    return books_that_match_a_given_book_id
 
 
 def get_book_by_id(book_id):
@@ -90,10 +90,6 @@ def create_favorite(user: User, book: Book) -> Favorite:
 
     return favorite_obj
 
-def get_favorite_by_id(favorite_id):
-    """Return a favorite by primary key."""
-
-    return Favorite.query.get(favorite_id)
 
 def get_favorite_by_book_id(book_id, user_id):
     """Return a favorite by book id."""

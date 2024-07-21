@@ -65,7 +65,7 @@ function showBook(evt) {
     //     });
     // }
 
-    // fetch(`/books.json?favorite=${favorite_id}`)
+
     function removeFavorite(evt){
         // To Do : add "not implemented" alert
         alert("Favorite removed");
@@ -73,9 +73,8 @@ function showBook(evt) {
         evt.stopImmediatePropagation();
         // console.log("Test")
         const delFavButton = evt.target;
-        // const favorite_id = document.getElementById('del-favorite-button')
-        const favorite_id = delFavButton.dataset.bookId;
-        fetch(`/favorites/${favorite_id}/delete`, {
+        const book_id = delFavButton.dataset.bookId;
+        fetch(`/favorites/${book_id}/delete`, {
             method: "DELETE"
         })
         .then((response) => {

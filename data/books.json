@@ -5,8 +5,7 @@
  "publish_date": "1997",
  "genre_name": "Fantasy",
  "is_fiction": true,
-"book_image": "https://books.google.com/books/content?id=wrOQLV6xB-wC&pg=PP1&img=1&zoom=3&hl=en&bul=1&sig=ACfU3U0pxFjDUW9HplCcIzSmlQs0B159ow&w=1280",
-"favorite_id": 1
+"book_image": "https://books.google.com/books/content?id=wrOQLV6xB-wC&pg=PP1&img=1&zoom=3&hl=en&bul=1&sig=ACfU3U0pxFjDUW9HplCcIzSmlQs0B159ow&w=1280"
 },
 
 
@@ -16,6 +15,5 @@
     "publish_date": "2022",
     "genre_name": "Business & Economics",
     "is_fiction": false,
-    "book_image": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781982172008/chip-war-9781982172008_hr.jpg",
-    "favorite_id": 2
+    "book_image": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781982172008/chip-war-9781982172008_hr.jpg"
   }]
