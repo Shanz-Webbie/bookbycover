@@ -18,12 +18,14 @@
   <p>{{ book.author_name }}</p>
   <p><img class="poster" src="{{ book.book_image }}"></p><br>
   <div class="favorite-group">
-    <button id="del-favorite-button" type="submit">Delete Favorite</button>
+    <button class="del-favorite-button-fav-page" data-book-id="{{ book.book_id }}">Delete Favorite</button>
   </div>
 {% endfor %}
 
+</div>
+
 <script src="/static/main.js"></script>
 
-</div>
+
 
 {% endblock %}

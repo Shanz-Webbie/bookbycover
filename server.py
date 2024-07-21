@@ -142,13 +142,14 @@ def create_a_favorite(book_id: int):
     else:
         raise NotImplementedError
 # /browse/<favorite_id>/delete
-@app.route("/favorites/<favorite_id>", methods=["DELETE"])
+@app.route("/favorites/<book_id>/delete", methods=["DELETE"])
 # edge: if favorite id is incorrect or favorite user id doesn't match
-def delete_a_favorite(favorite_id: int):
+def delete_a_favorite(book_id: int):
     user = get_user_from_session()
     if user:
-        favorite = crud.get_favorite_by_id(favorite_id)
-        crud.delete_favorite(favorite)
+        favorite = crud.get_favorite_by_book_id(book_id, user_id= user.user_id)
+        if favorite:
+            crud.delete_favorite(favorite)
         # source: https://stackoverflow.com/questions/24295426/python-flask-intentional-empty-response
         return Response(status=204)
     else:

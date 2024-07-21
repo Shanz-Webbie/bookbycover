@@ -95,6 +95,11 @@ def get_favorite_by_id(favorite_id):
 
     return Favorite.query.get(favorite_id)
 
+def get_favorite_by_book_id(book_id, user_id):
+    """Return a favorite by book id."""
+
+    return Favorite.query.filter_by(book_id=book_id, user_id=user_id).first()
+
 def delete_favorite(favorite: Favorite):
     """ Delete a favorite. """
     db.session.delete(favorite)

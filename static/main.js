@@ -23,13 +23,14 @@ function showBook(evt) {
         });
 }
 
-    document.querySelector('#title-form').addEventListener('submit', showBook);
+    // document.querySelector('#title-form').addEventListener('submit', showBook);
 
 
     function addFavorite(evt){
         // To Do : add "not implemented" alert
         alert("Favorite saved");
         // source: https://stackoverflow.com/questions/7822407/why-is-my-alert-showing-more-than-once
+        evt.stopImmediatePropagation();
         const favButton = evt.target;
         const book_id = favButton.dataset.bookId;
         console.log(`book id is: ${book_id}`)
@@ -43,12 +44,12 @@ function showBook(evt) {
             console.log("response received")
             if (! response.ok) {
                 throw new Error('Something went wrong');
-                }
-            })
-            .catch((error) => {
-              console.log(error)
-            });
-        }
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+        });
+    }
         // .then((favoritedBooks) => {
             // console.log(favoritedBooks)
             // // source: https://www.sitepoint.com/loop-through-json-response-javascript/
@@ -71,25 +72,38 @@ function showBook(evt) {
         // source: https://stackoverflow.com/questions/7822407/why-is-my-alert-showing-more-than-once
         evt.stopImmediatePropagation();
         // console.log("Test")
-        const favorite_id = document.getElementById('del-favorite-button')
-        // const delFavButton = evt.target;
-        // const favorite_id = delFavButton.dataset.bookId;
-        fetch(`/favorites?${favorite_id}`)
-        .then((response) => response.json())
-        .then((favoritedBooks) => {
-            // console.log(favoritedBooks)
-            // source: https://www.sitepoint.com/loop-through-json-response-javascript/
-            favoritedBooks.forEach(favoritedBook => {
-                console.log(favoritedBook)
-                // source: https://www.digitalocean.com/community/tutorials/how-to-add-javascript-to-html
-                // https://www.geeksforgeeks.org/how-to-append-html-code-to-a-div-using-javascript/
-                favoriteResultsDiv.innerHTML = `<h2>Favorites</h2><h3>${favoritedBook.book_title}</h3><p>${favoritedBook.author_name}</p><p><img class="poster" src='${favoritedBook.book_image}'/></p>`;
-
-            });
-
-
+        const delFavButton = evt.target;
+        // const favorite_id = document.getElementById('del-favorite-button')
+        const favorite_id = delFavButton.dataset.bookId;
+        fetch(`/favorites/${favorite_id}/delete`, {
+            method: "DELETE"
+        })
+        .then((response) => {
+            console.log("response received")
+            if (! response.ok) {
+                throw new Error('Something went wrong');
+            }
+        })
+        .catch((error) => {
+            console.log(error)
         });
     }
+        // }
+        // .then((response) => response.json())
+        // .then((favoritedBooks) => {
+        //     // console.log(favoritedBooks)
+        //     // source: https://www.sitepoint.com/loop-through-json-response-javascript/
+        //     favoritedBooks.forEach(favoritedBook => {
+        //         console.log(favoritedBook)
+        //         // source: https://www.digitalocean.com/community/tutorials/how-to-add-javascript-to-html
+        //         // https://www.geeksforgeeks.org/how-to-append-html-code-to-a-div-using-javascript/
+        //         favoriteResultsDiv.innerHTML = `<h2>Favorites</h2><h3>${favoritedBook.book_title}</h3><p>${favoritedBook.author_name}</p><p><img class="poster" src='${favoritedBook.book_image}'/></p>`;
+
+        //     });
+
+
+        // });
+    // }
     // source: https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event
     document.addEventListener('DOMContentLoaded', () => {
         // source: https://stackoverflow.com/questions/12330086/how-to-loop-through-selected-elements-with-document-queryselectorall
@@ -103,7 +117,14 @@ function showBook(evt) {
 
     });
 
+        document.querySelectorAll('.del-favorite-button-fav-page').forEach(button =>{
+        console.log("Delete")
+        button.addEventListener('click', removeFavorite);
+
+    });
+
 });
+
 
 
     // // source: https://www.basedash.com/blog/how-to-create-a-toggle-button-in-javascript
