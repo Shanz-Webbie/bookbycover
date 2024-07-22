@@ -23,7 +23,7 @@ function showBook(evt) {
         });
 }
 
-    // document.querySelector('#title-form').addEventListener('submit', showBook);
+    document.querySelector('#title-form').addEventListener('submit', showBook);
 
 
     function addFavorite(evt){
@@ -50,20 +50,7 @@ function showBook(evt) {
             console.log(error)
         });
     }
-        // .then((favoritedBooks) => {
-            // console.log(favoritedBooks)
-            // // source: https://www.sitepoint.com/loop-through-json-response-javascript/
-            // favoritedBooks.forEach(favoritedBook => {
-            //     console.log(favoritedBook)
-            //     // source: https://www.digitalocean.com/community/tutorials/how-to-add-javascript-to-html
-            //     // https://www.geeksforgeeks.org/how-to-append-html-code-to-a-div-using-javascript/
-            //     favoriteResultsDiv.innerHTML = `<h2>Favorites</h2><h3>${favoritedBook.book_title}</h3><p>${favoritedBook.author_name}</p><p><img class="poster" src='${favoritedBook.book_image}'/></p>`;
 
-    //         });
-
-
-    //     });
-    // }
 
 
     function removeFavorite(evt){
@@ -87,22 +74,7 @@ function showBook(evt) {
             console.log(error)
         });
     }
-        // }
-        // .then((response) => response.json())
-        // .then((favoritedBooks) => {
-        //     // console.log(favoritedBooks)
-        //     // source: https://www.sitepoint.com/loop-through-json-response-javascript/
-        //     favoritedBooks.forEach(favoritedBook => {
-        //         console.log(favoritedBook)
-        //         // source: https://www.digitalocean.com/community/tutorials/how-to-add-javascript-to-html
-        //         // https://www.geeksforgeeks.org/how-to-append-html-code-to-a-div-using-javascript/
-        //         favoriteResultsDiv.innerHTML = `<h2>Favorites</h2><h3>${favoritedBook.book_title}</h3><p>${favoritedBook.author_name}</p><p><img class="poster" src='${favoritedBook.book_image}'/></p>`;
 
-        //     });
-
-
-        // });
-    // }
     // source: https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event
     document.addEventListener('DOMContentLoaded', () => {
         // source: https://stackoverflow.com/questions/12330086/how-to-loop-through-selected-elements-with-document-queryselectorall

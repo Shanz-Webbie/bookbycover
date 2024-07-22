@@ -16,7 +16,9 @@ class User(db.Model):
     # user_last_name = db.Column(db.String)
     created_at = db.Column(db.DateTime)
 
-    favorites = db.relationship("Favorite", back_populates="user")
+    # ensure that favorite books associated to a user are removed despite having a PrimaryKeyConstraint
+    # source: https://docs.sqlalchemy.org/en/20/orm/cascades.html
+    favorites = db.relationship("Favorite", back_populates="user", cascade="all, delete")
 
     def __repr__(self):
         return f"<User user_id={self.user_id} email={self.user_email} first_name={self.user_first_name} last_name={self.user_last_name}>"
@@ -33,7 +35,8 @@ class Book(db.Model):
     publish_date = db.Column(db.String)
     book_image = db.Column(db.String)
 
-    favorites = db.relationship("Favorite", back_populates="book")
+    # source: https://docs.sqlalchemy.org/en/20/orm/cascades.html
+    favorites = db.relationship("Favorite", back_populates="book", cascade="all, delete")
     bookgenre = db.relationship("BookGenre", back_populates="book")
 
     def as_dict(self):
@@ -49,8 +52,8 @@ class Favorite(db.Model):
 
     __tablename__ = "favorites"
 
-    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), primary_key = True)
-    book_id = db.Column(db.Integer, db.ForeignKey("books.book_id"), primary_key = True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id", ondelete="CASCADE"), primary_key = True)
+    book_id = db.Column(db.Integer, db.ForeignKey("books.book_id", ondelete="CASCADE"), primary_key = True)
 
     # source: https://medium.com/@thinesh12/unlocking-the-power-of-composite-primary-keys-in-sqlalchemy-b378fb975e9b
     __table_args__ = ( PrimaryKeyConstraint('user_id', 'book_id'),)
