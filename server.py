@@ -2,6 +2,7 @@ import json
 from flask import Flask, Response, render_template, request, redirect, flash, session, abort, jsonify
 from model import User, Book, connect_to_db, db
 import crud
+import requests
 from jinja2 import StrictUndefined
 
 
@@ -120,11 +121,18 @@ def get_book_by_title():
 
     # get searched title from form
     title = request.args.get("title")
+    # authors = request.args.get("author")
+
+
+    # GoogleBooks: title, authors, imageLinks (thumbnail)
+
 
     # query the database for books with a matching title
+    # source: https://www.geeksforgeeks.org/postgresql-ilike-operator/
     db_books: list[Book] = Book.query.filter(Book.book_title.ilike(f"%{title}%")).all()
     # convert all the db books into a dictionary
     matching_books_dict = [book.as_dict() for book in db_books]
+
 
 
     return jsonify(matching_books_dict)
