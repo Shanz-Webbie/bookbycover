@@ -1,5 +1,5 @@
 import requests
-from book_marshaller import BookMarshaller
+from book_marshaller import AbstractBookMarshaller, BookMarshaller
 from model import Book
 from server import get_api_key
 from abc import abstractmethod , ABC
@@ -26,23 +26,22 @@ class BookAdapter(AbstractBookAdapter):
         response_dict = response.json()
         return response_dict
 
-class BookFacade:
+class BookFacade():
     # source: https://python-dependency-injector.ets-labs.org/introduction/di_in_python.html
     # source: https://www.youtube.com/watch?v=2ejbLVkCndI
     # arjan codes "Dependency INVERSION vs Dependency INJECTION in Python"
 
     adapter: AbstractBookAdapter
-    def __init__(self, adapter: AbstractBookAdapter):
+    marshaller: AbstractBookMarshaller
+    def __init__(self, adapter: AbstractBookAdapter, marshall: AbstractBookMarshaller):
         self.adapter = adapter
+        self.marshaller = marshall
 
-    def convert_book_dict(self, title: str) -> list[Book]:
-        book_marshaller = BookMarshaller()
+    def receive_and_convert_books(self, title: str) -> list[Book]:
         response_dict_result = self.adapter.get_books_by_title(title)
-        converted_books = []
-        for book_dict in response_dict_result["items"]:
-            marshalled_book = book_marshaller.marshall(book_dict)
-            converted_books.append(marshalled_book)
+        converted_books = self.marshaller.marshall(response_dict_result)
         return converted_books
+
 
 
 def main(title):
