@@ -19,6 +19,7 @@ with open("data/books.json") as f:
 
 # add in additional data via loop to delete
 books_in_db = []
+# for book in API limit 100
 for book in book_data:
     book_title, author_name, publish_date, genre_name, is_fiction, book_image = (
         book["book_title"],
