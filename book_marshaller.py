@@ -6,8 +6,6 @@ class AbstractBookMarshaller(ABC):
     def marshall(self, response_book_dict: dict) -> list[Book]:
         """Get dictionary of books and convert to Book objects."""
 
-#publishedDate
-
 
 class BookMarshaller(AbstractBookMarshaller):
     def marshall(self, response_dict_result: dict) -> list[Book]:
@@ -19,8 +17,8 @@ class BookMarshaller(AbstractBookMarshaller):
             authors = volume_info.get("authors")
             publishedDate = volume_info.get("publishedDate")
             # thumbnail is nested in imageLinks
-            imageLinks = volume_info("imageLinks", {}).get("thumbnail")
-            marshalled_book = Book(book_title= title, author_name= authors, published_date= publishedDate, book_image=imageLinks)
+            imageLinks = volume_info.get("imageLinks", {}).get("thumbnail")
+            marshalled_book = Book(book_title= title, author_name= authors, publish_date= publishedDate, book_image=imageLinks)
             converted_books.append(marshalled_book)
         return converted_books
 
