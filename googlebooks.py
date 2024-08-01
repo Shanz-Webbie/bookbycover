@@ -1,7 +1,6 @@
 import requests
 from book_marshaller import AbstractBookMarshaller, BookMarshaller
 from model import Book
-from server import get_api_key
 from abc import abstractmethod , ABC
 
 # source: https://www.youtube.com/watch?v=fsB8_79zI_A

@@ -52,6 +52,14 @@ def create_book(book_title, author_name, publish_date, genre_name, is_fiction, b
 
     return book
 
+def add_books_to_database(list_of_books: list[Book]):
+    """Add books from the facade to the database."""
+
+    for book in list_of_books:
+        db.session.add(book)
+
+    db.session.commit()
+
 def get_books():
     """Return all books."""
 

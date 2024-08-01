@@ -1,5 +1,7 @@
 import json
 from flask import Flask, Response, render_template, request, redirect, flash, session, abort, jsonify
+from book_marshaller import BookMarshaller
+from googlebooks import BookAdapter, BookFacade
 from model import User, Book, connect_to_db, db
 import crud
 import requests
@@ -115,14 +117,19 @@ def favorites():
     return render_template('favorites.html', favorites=favorites)
 
 
-@app.route('/books.json', methods=["POST", "GET"])
+@app.route('/books/search', methods=["POST", "GET"])
 def get_book_by_title():
     """Return a book-info dictionary for this title."""
+
+    adapter = BookAdapter()
+    marshaller = BookMarshaller()
+    book_facade = BookFacade(adapter, marshaller)
 
     # get searched title from form
     title = request.args.get("title")
     # authors = request.args.get("author")
-
+    recieved_data = book_facade.receive_and_convert_books(title)
+    crud.add_books_to_database(recieved_data)
 
     # GoogleBooks: title, authors, imageLinks (thumbnail)
 

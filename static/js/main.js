@@ -4,7 +4,7 @@ function showBook(evt) {
   // const requestedBooks = new Request("books.json")
   const book_title = document.querySelector("#title-field").value;
   console.log("Success!");
-  fetch(`/books.json?title=${book_title}`)
+  fetch(`/books/search?title=${book_title}`)
     .then((response) => response.json())
     .then((searchedBooks) => {
       console.log(searchedBooks);
