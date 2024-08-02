@@ -1,28 +1,25 @@
 import json
 from flask import Flask, Response, render_template, request, redirect, flash, session, abort, jsonify
 from book_marshaller import BookMarshaller
-from googlebooks import BookAdapter, BookFacade
+from googlebooks import BookAdapter, BookFacade, build_adapter
 from model import User, Book, connect_to_db, db
 import crud
 import requests
 from jinja2 import StrictUndefined
+import logging
 
 
 from pprint import pformat
 import os
 
+logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
 
+def get_session_secret():
+    return "SECRETSECRETSECRET"
 
-def get_api_key():
-    API_Key = os.getenv('GOOGLEBOOKS_KEY', 'SECRETSECRETSECRET')
-    return API_Key
-
-# app.secret_key = 'SECRETSECRETSECRET'
-
-app.secret_key = get_api_key()
-
+app.secret_key = get_session_secret()
 
 # # This configuration option makes the Flask interactive debugger
 # # more useful (you should remove this line in production though)
@@ -121,7 +118,7 @@ def favorites():
 def get_book_by_title():
     """Return a book-info dictionary for this title."""
 
-    adapter = BookAdapter()
+    adapter = build_adapter()
     marshaller = BookMarshaller()
     book_facade = BookFacade(adapter, marshaller)
 
@@ -132,11 +129,13 @@ def get_book_by_title():
     crud.add_books_to_database(recieved_data)
 
     # GoogleBooks: title, authors, imageLinks (thumbnail)
+    # maxResults - The maximum number of results to return. The default is 10, and the maximum allowable value is 40.
+
 
 
     # query the database for books with a matching title
     # source: https://www.geeksforgeeks.org/postgresql-ilike-operator/
-    db_books: list[Book] = Book.query.filter(Book.book_title.ilike(f"%{title}%")).all()
+    db_books: list[Book] = Book.query.filter(Book.book_title.ilike(f"%{title}%")).limit(20).all()
     # convert all the db books into a dictionary
     matching_books_dict = [book.as_dict() for book in db_books]
 

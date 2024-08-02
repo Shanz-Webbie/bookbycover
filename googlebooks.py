@@ -1,7 +1,12 @@
+import os
 import requests
 from book_marshaller import AbstractBookMarshaller, BookMarshaller
 from model import Book
 from abc import abstractmethod , ABC
+
+def get_api_key():
+    API_Key = os.getenv('GOOGLEBOOKS_KEY')
+    return API_Key
 
 # source: https://www.youtube.com/watch?v=fsB8_79zI_A
 # arjan code design patterns adapters
@@ -18,8 +23,11 @@ class BookAdapter(AbstractBookAdapter):
 
     def get_books_by_title(self, title: str) -> dict:
         # source: https://developers.google.com/books/docs/v1/using
+        # ToDo : Add API key to payload
         url = "https://www.googleapis.com/books/v1/volumes"
-        payload = { 'q': (f"{title}+intitle:{title}") }
+        payload = { 'q': (f"{title}+intitle:{title}"),
+                    'key': get_api_key(),
+                    }
 
         response = requests.get(url, params=payload)
         response_dict = response.json()
@@ -28,6 +36,7 @@ class BookAdapter(AbstractBookAdapter):
 class BookFacade():
     # source: https://python-dependency-injector.ets-labs.org/introduction/di_in_python.html
     # source: https://www.youtube.com/watch?v=2ejbLVkCndI
+    # source: https://medium.com/@amirm.lavasani/design-patterns-in-python-facade-0043afc9aa4a
     # arjan codes "Dependency INVERSION vs Dependency INJECTION in Python"
 
     adapter: AbstractBookAdapter
@@ -41,7 +50,8 @@ class BookFacade():
         converted_books = self.marshaller.marshall(response_dict_result)
         return converted_books
 
-
+def build_adapter() -> AbstractBookAdapter:
+    return BookAdapter()
 
 def main(title):
     googlebooks_api = get_api_key(api_key= None)

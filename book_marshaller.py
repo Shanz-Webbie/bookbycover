@@ -10,7 +10,11 @@ class AbstractBookMarshaller(ABC):
 class BookMarshaller(AbstractBookMarshaller):
     def marshall(self, response_dict_result: dict) -> list[Book]:
         converted_books = []
-        for book_dict in response_dict_result["items"]:
+        try:
+            items = response_dict_result["items"]
+        except KeyError:
+            raise RuntimeError("Rate limit exceeded")
+        for book_dict in items:
             # volumeInfo is the GoogleBooks key
             volume_info = book_dict.get("volumeInfo", {})
             title = volume_info.get("title")
