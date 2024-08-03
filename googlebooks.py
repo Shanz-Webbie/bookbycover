@@ -23,7 +23,6 @@ class BookAdapter(AbstractBookAdapter):
 
     def get_books_by_title(self, title: str) -> dict:
         # source: https://developers.google.com/books/docs/v1/using
-        # ToDo : Add API key to payload
         url = "https://www.googleapis.com/books/v1/volumes"
         payload = { 'q': (f"{title}+intitle:{title}"),
                     'key': get_api_key(),

@@ -19,15 +19,6 @@
 </form>
   <div id="search-results">
   </div>
-  <!-- <div id="test"> Test:   </div>
-    <script>
-    title_info = JSON.parse(title_info);
-    var getimage = document.createElement("img");
-    getimage.onload = function() {
-       document.getElementById("test").appendChild(getimage);
-    }
-    getimage.src = title_info.book_image;
-  </script> -->
   <h2>Browse:</h2>
   {% for book in books %}
     <p>{{ book.book_title }}</p>
@@ -36,43 +27,12 @@
     <br>
     <div class="favorite-group">
 
-
       <button class="favorite-button" data-book-id="{{ book.book_id }}">Favorite</button>
       <button class="del-favorite-button" data-book-id="{{ book.book_id }}">Remove Favorite</button>
-
-
-
 
     </div>
 
   {% endfor %}
   <script src="/static/js/main.js"></script>
-  <!-- <html>
-  <head>
-    <title>Books API Example</title>
-  </head>
-  <body>
-    <div id="content"></div>
-    <script>
-      function handleResponse(response) {
-      for (var i = 0; i < response.items.length; i++) {
-        var item = response.items[i];
-        // in production code, item.text should have the HTML entities escaped.
-        document.getElementById("content").innerHTML += "<br>" + item.volumeInfo.title;
-      }
-    }
-    </script>
-    <script src="https://www.googleapis.com/books/v1/volumes?q=harry+potter&callback=handleResponse"></script>
-  </body>
-</html>
-  <script type="text/javascript" src="https://ww.google.com/books/jsapi.js"></script>
-  <script type="text/javascript">
-    google.books.load();
-    function initialize(){
-        var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
-        viewer.load('ISBN:0738531367');
-    }
-    google.books.setOnLoadCallback(initialize);
-  </script>
-    <div id="viewerCanvas" style="width: 600px; height: 500px"></div> -->
+
     {% endblock %}
