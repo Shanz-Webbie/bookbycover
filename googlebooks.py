@@ -32,6 +32,17 @@ class BookAdapter(AbstractBookAdapter):
         response_dict = response.json()
         return response_dict
 
+    def get_books_by_authors(self, authors: str) -> dict:
+        # source: https://developers.google.com/books/docs/v1/using
+        url = "https://www.googleapis.com/books/v1/volumes"
+        payload = { 'q': authors,
+                    'key': get_api_key(),
+                    }
+
+        response = requests.get(url, params=payload)
+        response_dict = response.json()
+        return response_dict
+
 class BookFacade():
     # source: https://python-dependency-injector.ets-labs.org/introduction/di_in_python.html
     # source: https://www.youtube.com/watch?v=2ejbLVkCndI
@@ -44,10 +55,16 @@ class BookFacade():
         self.adapter = adapter
         self.marshaller = marshall
 
-    def receive_and_convert_books(self, title: str) -> list[Book]:
+    def receive_and_convert_books_title(self, title: str) -> list[Book]:
         response_dict_result = self.adapter.get_books_by_title(title)
         converted_books = self.marshaller.marshall(response_dict_result)
         return converted_books
+
+    def receive_and_convert_books_author(self, author: str) -> list[Book]:
+        response_dict_result = self.adapter.get_books_by_title(author)
+        converted_books = self.marshaller.marshall(response_dict_result)
+        return converted_books
+
 
 def build_adapter() -> AbstractBookAdapter:
     return BookAdapter()

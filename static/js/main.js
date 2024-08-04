@@ -1,4 +1,4 @@
-function showBook(evt) {
+function showBookByTitle(evt) {
   evt.preventDefault();
   const url = "/books.json";
   // const requestedBooks = new Request("books.json")
@@ -19,6 +19,26 @@ function showBook(evt) {
     });
 }
 
+function showBookByAuthor(evt) {
+  evt.preventDefault();
+  const url = "/books.json";
+  // const requestedBooks = new Request("books.json")
+  const author_name = document.querySelector("#author-field").value;
+  console.log("Success!");
+  fetch(`/books/search?author=${author_name}`)
+    .then((response) => response.json())
+    .then((searchedBooks) => {
+      console.log(searchedBooks);
+      const searchResultsDiv = document.querySelector("#search-results");
+      // source: https://www.sitepoint.com/loop-through-json-response-javascript/
+      searchedBooks.forEach((book) => {
+        console.log(book);
+        // source: https://www.digitalocean.com/community/tutorials/how-to-add-javascript-to-html
+        // https://www.geeksforgeeks.org/how-to-append-html-code-to-a-div-using-javascript/
+        searchResultsDiv.innerHTML = `<h2>Search Results:</h2><h3>${book.book_title}</h3><p>${book.author_name}</p><p><img class="poster" src='${book.book_image}'/></p>`;
+      });
+    });
+}
 
 
 function addFavorite(evt) {
@@ -89,5 +109,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 browsePageForm = document.querySelector("#title-form")
 if (browsePageForm){
-    browsePageForm.addEventListener("submit", showBook);
+    browsePageForm.addEventListener("submit", showBookByTitle);
+}
+
+browsePageFormAuthor = document.querySelector("#author-form")
+if (browsePageForm){
+    browsePageFormAuthor.addEventListener("submit", showBookByAuthor);
 }

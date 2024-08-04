@@ -8,10 +8,19 @@
   {% block body %}
   <!-- sources: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search
   https://www.shecodes.io/athena/36478-how-to-create-a-search-input-and-button-in-javascript -->
-  <label for="title-field">Search Books:</label>
+  <label for="title-field">Search By Title:</label>
 <form id="title-form">
   <div class="form-group">
     <input class="form-control" type="search" id="title-field" name="title" placeholder="Title"/>
+  </div>
+  <div class="form-group">
+    <button id="search-button" type="submit">Search</button>
+  </div>
+</form>
+<label for="author-field">Search By Author:</label>
+<form id="author-form">
+  <div class="form-group">
+    <input class="form-control" type="search" id="author-field" name="authors" placeholder="Author"/>
   </div>
   <div class="form-group">
     <button id="search-button" type="submit">Search</button>
