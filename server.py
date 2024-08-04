@@ -114,7 +114,7 @@ def favorites():
     return render_template('favorites.html', favorites=favorites)
 
 
-@app.route('/books/search', methods=["POST", "GET"])
+@app.route('/books/search/title', methods=["POST", "GET"])
 def get_book_by_title():
     """Return a book-info dictionary for this title."""
 
@@ -143,6 +143,7 @@ def get_book_by_title():
 
     return jsonify(matching_books_dict)
 
+@app.route('/books/search/author', methods=["POST", "GET"])
 def get_book_by_author():
     """Return a book-info dictionary for this author."""
 
@@ -151,9 +152,9 @@ def get_book_by_author():
     book_facade = BookFacade(adapter, marshaller)
 
     # get searched title from form
-    authors = request.args.get("authors")
+    author = request.args.get("author")
     # authors = request.args.get("author")
-    recieved_data = book_facade.receive_and_convert_books_author(authors)
+    recieved_data = book_facade.receive_and_convert_books_author(author)
     crud.add_books_to_database(recieved_data)
 
     # GoogleBooks: title, authors, imageLinks (thumbnail)
@@ -163,7 +164,7 @@ def get_book_by_author():
 
     # query the database for books with a matching title
     # source: https://www.geeksforgeeks.org/postgresql-ilike-operator/
-    db_books: list[Book] = Book.query.filter(Book.author_name.ilike(f"%{authors}%")).all()
+    db_books: list[Book] = Book.query.filter(Book.author_name == author).limit(20).all()
     # convert all the db books into a dictionary
     matching_books_dict = [book.as_dict() for book in db_books]
 

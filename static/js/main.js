@@ -4,7 +4,7 @@ function showBookByTitle(evt) {
   // const requestedBooks = new Request("books.json")
   const book_title = document.querySelector("#title-field").value;
   console.log("Success!");
-  fetch(`/books/search?title=${book_title}`)
+  fetch(`/books/search/title?title=${book_title}`)
     .then((response) => response.json())
     .then((searchedBooks) => {
       console.log(searchedBooks);
@@ -25,7 +25,7 @@ function showBookByAuthor(evt) {
   // const requestedBooks = new Request("books.json")
   const author_name = document.querySelector("#author-field").value;
   console.log("Success!");
-  fetch(`/books/search?author=${author_name}`)
+  fetch(`/books/search/author?author=${author_name}`)
     .then((response) => response.json())
     .then((searchedBooks) => {
       console.log(searchedBooks);

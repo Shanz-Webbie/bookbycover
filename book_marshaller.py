@@ -22,12 +22,13 @@ class BookMarshaller(AbstractBookMarshaller):
             publishedDate = volume_info.get("publishedDate")
             # thumbnail is nested in imageLinks
             imageLinks = volume_info.get("imageLinks", {}).get("thumbnail")
-            # only display the first author for formatting consistency
-            if authors:
             # only display books with an image
+            if authors:
+            # only display the first author for formatting consistency
                 first_author = authors[0]
+            # ToDo add a placeholder image for books without thumbnails
+            marshalled_book = Book(book_title= title, author_name= first_author, publish_date= publishedDate, book_image=imageLinks)
             if imageLinks:
-                marshalled_book = Book(book_title= title, author_name= first_author, publish_date= publishedDate, book_image=imageLinks)
-            converted_books.append(marshalled_book)
+                converted_books.append(marshalled_book)
         return converted_books
 
