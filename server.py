@@ -141,6 +141,7 @@ def get_book_by_title():
 
 
 
+
     return jsonify(matching_books_dict)
 
 @app.route('/books/search/author', methods=["POST", "GET"])
@@ -156,10 +157,6 @@ def get_book_by_author():
     # authors = request.args.get("author")
     recieved_data = book_facade.receive_and_convert_books_author(author)
     crud.add_books_to_database(recieved_data)
-
-    # GoogleBooks: title, authors, imageLinks (thumbnail)
-    # maxResults - The maximum number of results to return. The default is 10, and the maximum allowable value is 40.
-
 
 
     # query the database for books with a matching title
@@ -196,7 +193,6 @@ def delete_a_favorite(book_id: int):
         return Response(status=204)
     else:
         raise NotImplementedError
-
 
 
 if __name__ == '__main__':
