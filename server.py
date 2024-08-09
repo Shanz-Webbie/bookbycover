@@ -132,14 +132,11 @@ def get_book_by_title():
     # maxResults - The maximum number of results to return. The default is 10, and the maximum allowable value is 40.
 
 
-
     # query the database for books with a matching title
     # source: https://www.geeksforgeeks.org/postgresql-ilike-operator/
     db_books: list[Book] = Book.query.filter(Book.book_title.ilike(f"%{title}%")).limit(20).all()
     # convert all the db books into a dictionary
     matching_books_dict = [book.as_dict() for book in db_books]
-
-
 
 
     return jsonify(matching_books_dict)

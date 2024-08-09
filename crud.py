@@ -26,6 +26,25 @@ def get_user_by_email(email: str) -> User:
 
     return User.query.filter(User.user_email == email).first()
 
+
+def duplicate_books(book_to_check: Book) -> list[Book]:
+    """Check for matching books in the database."""
+    # get all books from database
+    db_books = get_books()
+    matching_books = [
+        book for book in db_books if
+        book.book_title == book_to_check.book_title and
+        book.author_name == book_to_check.author_name and
+        book.publish_date == book_to_check.publish_date
+    ]
+    return matching_books
+
+def safely_add_unique_book(book: Book):
+    if duplicate_books(book):
+        raise Exception("This book is already in the database.")
+    db.session.add(book)
+    db.session.commit()
+
 def create_book(book_title, author_name, publish_date, genre_name, is_fiction, book_image):
     """Create and return a book."""
     book = Book(
@@ -45,20 +64,20 @@ def create_book(book_title, author_name, publish_date, genre_name, is_fiction, b
 
     )
 
-    db.session.add(book)
+    safely_add_unique_book(book)
     db.session.add(genre)
     db.session.add(book_genre)
     db.session.commit()
 
     return book
 
+
 def add_books_to_database(list_of_books: list[Book]):
     """Add books from the facade to the database."""
 
     for book in list_of_books:
-        db.session.add(book)
+        safely_add_unique_book(book)
 
-    db.session.commit()
 
 def get_books():
     """Return all books."""
