@@ -158,7 +158,7 @@ def get_book_by_author():
 
     # query the database for books with a matching title
     # source: https://www.geeksforgeeks.org/postgresql-ilike-operator/
-    db_books: list[Book] = Book.query.filter(Book.author_name == author).limit(20).all()
+    db_books: list[Book] = Book.query.filter(Book.author_name.ilike(f"%{author}%")).limit(20).all()
     # convert all the db books into a dictionary
     matching_books_dict = [book.as_dict() for book in db_books]
 
