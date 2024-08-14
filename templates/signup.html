@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block body %}
 
-<h3>Find your new favorite book</h3><br>
-<h2>Create an Account</h2>
+<br><h3>Find your new favorite book</h3><br>
+<div id="main" class="'content">
+    <h2>Create an Account</h2>
+<h3>After account creation you will need to sign in</h3>
 <form action="/signup" method="POST">
     <p>
         Email <input type="text" name="user_email">
@@ -15,5 +17,7 @@
         <input type="submit">
     </p>
 </form>
+</div>
+
 
 {% endblock %}
