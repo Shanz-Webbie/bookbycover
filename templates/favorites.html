@@ -13,14 +13,19 @@
 <h2>Favorites:</h2>
 
  <!-- if matching favorite id -->
-{% for book in favorites %}
+{% if favorites %}
+  {% for book in favorites %}
   <p>{{ book.book_title }}</p>
   <p>{{ book.author_name }}</p>
   <p><img class="poster" src="{{ book.book_image }}"></p><br>
   <div class="favorite-group">
     <button class="del-favorite-button-fav-page" data-book-id="{{ book.book_id }}">Delete Favorite</button>
   </div>
-{% endfor %}
+  {% endfor %}
+{% else %}
+  <h3> No favorites yet! Please <a href="/browse">browse</a> books.</h3>
+{% endif %}
+
 
 </div>
 

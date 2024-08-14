@@ -106,13 +106,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // // source: https://www.basedash.com/blog/how-to-create-a-toggle-button-in-javascript
 
+// source: https://stackoverflow.com/questions/49961201/javascript-alert-when-no-matching-results-from-search-query
 
 browsePageForm = document.querySelector("#title-form")
+
 if (browsePageForm){
     browsePageForm.addEventListener("submit", showBookByTitle);
 }
 
 browsePageFormAuthor = document.querySelector("#author-form")
+
 if (browsePageForm){
     browsePageFormAuthor.addEventListener("submit", showBookByAuthor);
 }

@@ -13,7 +13,7 @@ class BookMarshaller(AbstractBookMarshaller):
         try:
             items = response_dict_result["items"]
         except KeyError:
-            raise RuntimeError("Rate limit exceeded")
+            raise RuntimeError("Key doesn't exist. Try again.")
         for book_dict in items:
             # volumeInfo is the GoogleBooks key
             volume_info = book_dict.get("volumeInfo", {})

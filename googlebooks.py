@@ -27,22 +27,24 @@ class BookAdapter(AbstractBookAdapter):
     def get_books_by_title(self, title: str) -> dict:
         # source: https://developers.google.com/books/docs/v1/using
         url = "https://www.googleapis.com/books/v1/volumes"
-        payload = { 'q': (f"{title}+intitle:{title}"),
+        parameters = { 'q': (f"{title}+intitle:{title}"),
                     'key': get_api_key(),
                     }
 
-        response = requests.get(url, params=payload)
+        response = requests.get(url, params=parameters)
+        response.raise_for_status()
         response_dict = response.json()
         return response_dict
 
     def get_books_by_author(self, authors: str) -> dict:
         # source: https://developers.google.com/books/docs/v1/using
         url = "https://www.googleapis.com/books/v1/volumes"
-        payload = { 'q': authors,
+        parameters = { 'q': authors,
                     'key': get_api_key(),
                     }
 
-        response = requests.get(url, params=payload)
+        response = requests.get(url, params=parameters)
+        response.raise_for_status()
         response_dict = response.json()
         return response_dict
 
