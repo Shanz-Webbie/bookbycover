@@ -1,3 +1,22 @@
+
+h3 {
+  font-family: sans-serif;
+  color: #715e61ff;
+
+}
+
+
+ h2 {
+  font-family: sans-serif;
+  color: #957a78ff;
+
+}
+/* --silver: #bfbdbaff;
+--wenge: #715e61ff;
+--silver-2: #c2c8c8ff;
+--honeydew: #dde6d8ff;
+--cinereous: #957a78ff; */
+
 .poster {
     max-width: 800px;
     max-height: 400px;

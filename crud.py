@@ -40,8 +40,11 @@ def duplicate_books(book_to_check: Book) -> list[Book]:
     return matching_books
 
 def safely_add_unique_book(book: Book):
-    if duplicate_books(book):
-        raise Exception("This book is already in the database.")
+    try:
+        if duplicate_books(book):
+            raise Exception("This book is already in the database.")
+    except Exception as error:
+        print(f"Error with adding book: {error}")
     db.session.add(book)
     db.session.commit()
 

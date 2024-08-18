@@ -64,6 +64,16 @@ function addFavorite(evt) {
     });
 }
 
+// source: https://www.freecodecamp.org/news/javascript-refresh-page-how-to-reload-a-page-in-js/
+// source: https://developer.mozilla.org/en-US/docs/Web/API/clearTimeout
+
+// let timeout;
+// setTimeout(function() {
+//   clearTimeout(timeout);
+//   timeout = location.reload();
+// }, 3000);
+
+
 function removeFavorite(evt) {
   // To Do : add "not implemented" alert
   alert("Favorite removed");
@@ -83,7 +93,10 @@ function removeFavorite(evt) {
     .catch((error) => {
       console.log(error);
     });
+
 }
+
+
 
 // source: https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event
 document.addEventListener("DOMContentLoaded", () => {
@@ -96,11 +109,9 @@ document.addEventListener("DOMContentLoaded", () => {
     button.addEventListener("click", removeFavorite);
   });
 
-  document
-    .querySelectorAll(".del-favorite-button-fav-page")
-    .forEach((button) => {
+  document.querySelectorAll(".del-favorite-button-fav-page").forEach((button) => {
       console.log("Delete");
-      button.addEventListener("click", removeFavorite);
+      button.addEventListener("click", removeFavorite, setTimeout);
     });
 });
 

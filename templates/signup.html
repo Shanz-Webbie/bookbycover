@@ -1,21 +1,35 @@
 {% extends "base.html" %}
 {% block body %}
 
-<br><h3>Find your new favorite book</h3><br>
 <div id="main" class="'content">
-    <h2>Create an Account</h2>
-<h3>After account creation you will need to sign in</h3>
-<form action="/signup" method="POST">
-    <p>
-        Email <input type="text" name="user_email">
-    </p>
-    <p>
-        Password <input type="password" name="user_password">
-    </p>
-    <p>
-        First name <input type="text" name="user_first_name">
-        <input type="submit">
-    </p>
+    <br><br>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="text-center">
+                <img src="https://images.unsplash.com/photo-1474366521946-c3d4b507abf2?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="img-fluid " alt="Responsive image">
+                </div>
+            </div>
+        </div>
+<div id="main" class="'content">
+    <br><h2>Create an Account</h2>
+<p>After account creation you will need to sign in</p><br>
+<div class="form-group">
+    <form method="POST" action="/signup">
+        <label for="field-email">Email</label><br>
+        <input id="email" class="form-control" type="text" name="user_email" required><br>
+    </div>
+    <div class="form-group">
+            <label for="field-password">Password</label>
+            <input id="password" class="form-control" type="password" name="user_password" required><br>
+        </div>
+    <div class="form-group">
+        <form method="POST" action="/signup">
+            <label for="field-user-first-name">First Name</label><br>
+            <input id="email" class="form-control" type="text" name="user_first_name" required><br>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Submit" class="btn btn-primary">
+    </div>
 </form>
 </div>
 
