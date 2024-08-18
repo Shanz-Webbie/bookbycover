@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
-<div id="main" class="'content">
+<div id="main" class="content">
     <br><br>
     <div class="row">
         <div class="col-md-6">
@@ -10,7 +10,7 @@
             </div>
         </div>
     <br>
-    <h3>Please Login</h3><br>
+    <h2>Please Login</h2><br>
     <div class="form-group">
     <form method="POST" action="/login">
         <label for="field-email">Email</label><br>
@@ -24,5 +24,8 @@
         <input type="submit" value="Submit" class="btn btn-primary">
     </div>
 </form>
+
+
+<script src="/static/js/main.js"></script>
 
 {% endblock %}

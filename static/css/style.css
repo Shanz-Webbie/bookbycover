@@ -1,27 +1,54 @@
 
 h3 {
+  font-family: "DM Serif Text", serif;
+  font-weight: 400;
+  font-style: normal;
   font-family: sans-serif;
   color: #715e61ff;
 
 }
 
 
+
  h2 {
-  font-family: sans-serif;
+  font-family: "DM Serif Text", serif;
+  font-weight: 400;
+  font-style: normal;
   color: #957a78ff;
 
 }
 
 h4 {
+  font-family: "DM Serif Text", serif;
+  font-weight: 400;
+  font-style: normal;
   font-family: sans-serif;
   color: #c2c8c8ff;
 
+}
+
+h1 {
+  font-family: "DM Serif Text", serif;
+  font-weight: 400;
+  font-style: italic;
 }
 /* --silver: #bfbdbaff;
 --wenge: #715e61ff;
 --silver-2: #c2c8c8ff;
 --honeydew: #dde6d8ff;
 --cinereous: #957a78ff; */
+
+.dm-serif-text-regular {
+  font-family: "DM Serif Text", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.dm-serif-text-regular-italic {
+  font-family: "DM Serif Text", serif;
+  font-weight: 400;
+  font-style: italic;
+}
 
 .poster {
     max-width: 800px;
