@@ -12,36 +12,44 @@
   {% block body %}
   <!-- sources: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search
   https://www.shecodes.io/athena/36478-how-to-create-a-search-input-and-button-in-javascript -->
-  <label for="title-field">Search By Title:</label>
+  <label for="title-field"><h3>Search By Title:</h3></label>
 <form id="title-form">
   <div class="form-group">
     <input class="form-control" type="search" id="title-field" name="title" placeholder="Title"/>
   </div>
   <div class="form-group">
-    <button id="search-button" type="submit">Search</button>
+    <button id="search-button" type="submit"><h2>Search</h2></button>
   </div>
 </form>
-<label for="author-field">Search By Author:</label>
+<label for="author-field"><h3>Search By Author:</h3></label>
 <form id="author-form">
   <div class="form-group">
     <input class="form-control" type="search" id="author-field" name="authors" placeholder="Author"/>
   </div>
   <div class="form-group">
-    <button id="search-button" type="submit">Search</button>
+    <button id="search-button" type="submit"><h2>Search</h2></button>
   </div>
 </form>
   <div id="search-results">
   </div>
   <h2>Browse:</h2>
   {% for book in books %}
-    <p>{{ book.book_title }}</p>
-    <p>{{ book.author_name }}</p>
+  <div class="container">
+    <div class="row align-items-start">
+      <div class="col-md-6">
+    <h1>{{ book.book_title }}</h1>
+    <h2>{{ book.author_name }}</h2>
+  </div>
     <p><img class="poster" src="{{ book.book_image }}"></p>
     <br>
     <div class="favorite-group">
 
-      <button class="favorite-button" data-book-id="{{ book.book_id }}">Favorite</button>
-      <button class="del-favorite-button" data-book-id="{{ book.book_id }}">Remove Favorite</button>
+      <button class="favorite-button" data-book-id="{{ book.book_id }}"><h3>Favorite   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/><
+      </svg></h3></button><br><br>
+      <button class="del-favorite-button" data-book-id="{{ book.book_id }}"><h3>Remove Favorite   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+      </svg></h3></button>
 
     </div>
 
