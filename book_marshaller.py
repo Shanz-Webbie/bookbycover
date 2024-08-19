@@ -26,6 +26,8 @@ class BookMarshaller(AbstractBookMarshaller):
             if authors:
             # only display the first author for formatting consistency
                 first_author = authors[0]
+            else:
+                first_author = None
             # ToDo add a placeholder image for books without thumbnails
             marshalled_book = Book(book_title= title, author_name= first_author, publish_date= publishedDate, book_image=imageLinks)
             converted_books.append(marshalled_book)
