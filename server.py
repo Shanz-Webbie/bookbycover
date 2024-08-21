@@ -100,8 +100,12 @@ def browse():
     """Show browsing homepage."""
 
     user_object = get_user_from_session()
-    flash(f"Welcome back, {user_object.user_first_name}!")
-    books = crud.get_books()
+    if user_object:
+        flash(f"Welcome back, {user_object.user_first_name}!")
+        books = crud.get_books()
+    else:
+        flash(f"Please login first")
+        return render_template('login.html')
     return render_template('browse.html', user_first_name=user_object.user_first_name, books=books)
 
 @app.route('/favorites')
@@ -109,7 +113,9 @@ def favorites():
     """Show favorites homepage."""
     user = get_user_from_session()
     if not user:
-        return Response(status=401)
+        flash(f"Please login first")
+        return render_template('login.html')
+        # return Response(status=401)
     favorites = crud.get_favorite_books_for_a_given_user(user)
     return render_template('favorites.html', favorites=favorites)
 
