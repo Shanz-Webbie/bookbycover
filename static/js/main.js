@@ -64,23 +64,14 @@ function addFavorite(evt) {
     });
 }
 
-// source: https://www.freecodecamp.org/news/javascript-refresh-page-how-to-reload-a-page-in-js/
-// source: https://developer.mozilla.org/en-US/docs/Web/API/clearTimeout
-
-// let timeout;
-// setTimeout(function() {
-//   clearTimeout(timeout);
-//   timeout = location.reload();
-// }, 3000);
-
 
 function removeFavorite(evt) {
-  // To Do : add "not implemented" alert
   alert("Favorite removed");
   // source: https://stackoverflow.com/questions/7822407/why-is-my-alert-showing-more-than-once
   evt.stopImmediatePropagation();
   const delFavButton = evt.target;
   const book_id = delFavButton.dataset.bookId;
+
   fetch(`/favorites/${book_id}/delete`, {
     method: "DELETE",
   })
@@ -89,11 +80,15 @@ function removeFavorite(evt) {
       if (!response.ok) {
         throw new Error("Something went wrong");
       }
+      // Remove the book item from the DOM
+      const deletedBookItem = delFavButton.closest(".container");
+      if (deletedBookItem) {
+        deletedBookItem.remove();
+      }
     })
     .catch((error) => {
       console.log(error);
     });
-
 }
 
 
