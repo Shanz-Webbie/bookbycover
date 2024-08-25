@@ -8,26 +8,23 @@ BookByCover is a mobile-responsive web application that allows users to browse a
 
 # Login or register an account
 <img src="https://i.imgur.com/57Ino1c.png"/>
-Our book browsing app offers a seamless and intuitive user onboarding experience, ensuring you can quickly dive into exploring your next great read. When signing up, new users are prompted to create a personalized account by entering their username, password, and first name. This straightforward process ensures that your experience is tailored from the very start.
-
-Once the required information is entered, users are automatically redirected to the login page. Here, you can securely enter your newly created credentials and immediately begin discovering, browsing, and saving your favorite books. This smooth transition from sign-up to sign-in ensures a hassle-free start to your book browsing journey.
+When signing up, new users are prompted to create a personalized account by entering their username, password, and first name.<br><br>
+Once the required information is entered, users are automatically redirected to the login page. Here, you can securely enter your newly created credentials and immediately begin discovering, browsing, and saving your favorite books.
 
 # Search by title or author
 <img src="https://i.imgur.com/od2VSGJ.png"/>
-BookByCover empowers you to find exactly what you're looking for with an advanced search feature that allows you to search by book title or author. Whether you're looking for a specific book or exploring an author's entire collection, our search function delivers results.
+BookByCover enables you to search by book title or author. Whether you're looking for a specific book or exploring an author's entire collection, our search function delivers results.<br><br>
 
 Every search result is automatically saved, allowing you to revisit your searches at any time. This ensures that no book you’re interested in is lost in the shuffle.
-
-
 # Browse books
 <img src="https://i.imgur.com/BR3FVVa.png"/>
 
-As you explore our browse page, you can easily manage your personal library by saving or deleting your favorite books with just a tap. Keep track of the titles you love, and curate a collection that reflects your unique tastes. With these powerful tools at your fingertips, discovering, organizing, and enjoying books has never been easier.
+As you explore our browse page, you can manage your personal library by saving or deleting your favorite books. Keep track of the titles you love, and curate a collection that reflects your unique tastes.
 
 # Save or delete a favorite book
 <img src="https://i.imgur.com/ntw6l8P.png"/>
 
-When you navigate to the favorites page, you'll find all the books you've saved neatly organized for easy viewing. Here, you can add new favorites or remove any that no longer capture your interest, giving you complete control over your personal collection.
+When you navigate to the favorites page, you'll find all the books you've saved. Here, you can add new favorites or remove any that no longer capture your interest, giving you complete control over your personal collection.<br>
 
 And if you haven’t saved any favorites yet, don’t worry! The favorites page will display a friendly message encouraging you to explore the library and start building your collection.
 
@@ -36,7 +33,7 @@ And if you haven’t saved any favorites yet, don’t worry! The favorites page 
 ## GitHub
 
 
-The GitHub repository for BookByCover hosts the complete source code for a dynamic, mobile-responsive web application that leverages the Google Books API for seamless book browsing and favoriting with an intuitive user interface.
+The GitHub repository for BookByCover hosts the complete source code.
 
 [BookByCover GitHub](https://github.com/Shanz-Webbie/bookbycover)
 
@@ -50,10 +47,12 @@ The GitHub repository for BookByCover hosts the complete source code for a dynam
 - User-Friendly Interface: Clean and easy-to-navigate interface for an enhanced browsing experience.
 - Fast Loading Times: Efficiently loads book data, ensuring a smooth user experience.
 - Cross-Platform Compatibility: Accessible across different devices and operating systems.
+<br><br>
 
 
-> Discover a world of literature tailored just for you with our personalized book browsing platform. Powered by the Google Books API, BookByCover curates a diverse selection of literary treasures at your fingertips.  Filter through libraries by author or title to uncover your next great read. Save your favorite books for later, and manage your collection by removing titles once you've finished them. All your preferences and saved selections are securely tied to your personal account, ensuring a unique and customized browsing experience every time.
+> Discover a world of literature tailored just for you with our personalized book browsing platform. Powered by the Google Books API, BookByCover curates a diverse selection of literary treasures.  Filter through libraries by author or title to uncover your next great read. Save your favorite books for later, and manage your collection by removing titles once you've finished them. All your preferences and saved selections are securely tied to your personal account, ensuring a unique and customized browsing experience every time.
 
+<br>
 
 
 ## Tech
@@ -92,7 +91,6 @@ your preferred browser.
 
 ```sh
 127.0.0.1:6060
-10.0.0.247:6060/
 ```
 
 
