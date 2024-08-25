@@ -4,7 +4,7 @@
 [Link to the live demo](https://songstratus.herokuapp.com/)
 
 
-BookByCover is a mobile-responsive web application that allows users to browse and favorite books, powered by the Google Books API. It also supports offline storage for seamless access anytime, anywhere.
+BookByCover is a mobile-responsive web application that allows users to browse and favorite books, powered by the Google Books API.
 
 # Login or register an account
 <img src="https://i.imgur.com/57Ino1c.png"/>
@@ -24,7 +24,7 @@ As you explore our browse page, you can manage your personal library by saving o
 # Save or delete a favorite book
 <img src="https://i.imgur.com/ntw6l8P.png"/>
 
-When you navigate to the favorites page, you'll find all the books you've saved. Here, you can add new favorites or remove any that no longer capture your interest, giving you complete control over your personal collection.<br>
+When you navigate to the favorites page, you'll find all the books you've saved. Here, you can browse the books you've already favorited or remove any that no longer capture your interest, giving you complete control over your personal collection.<br>
 
 And if you haven’t saved any favorites yet, don’t worry! The favorites page will display a friendly message encouraging you to explore the library and start building your collection.
 
@@ -41,18 +41,12 @@ The GitHub repository for BookByCover hosts the complete source code.
 
 - Mobile-Responsive Design: Optimized for use on smartphones, tablets, and desktops.
 - Google Books API Integration: Search and explore a vast collection of books directly from the Google Books database.
-- Offline Storage: Save favorite books locally for access without an internet connection.
 - Book Favoriting: Easily mark and organize your favorite books for quick reference.
 - Search by Title and Author: Quickly find books using intuitive search functionality.
 - User-Friendly Interface: Clean and easy-to-navigate interface for an enhanced browsing experience.
 - Fast Loading Times: Efficiently loads book data, ensuring a smooth user experience.
 - Cross-Platform Compatibility: Accessible across different devices and operating systems.
 <br><br>
-
-
-> Discover a world of literature tailored just for you with our personalized book browsing platform. Powered by the Google Books API, BookByCover curates a diverse selection of literary treasures.  Filter through libraries by author or title to uncover your next great read. Save your favorite books for later, and manage your collection by removing titles once you've finished them. All your preferences and saved selections are securely tied to your personal account, ensuring a unique and customized browsing experience every time.
-
-<br>
 
 
 ## Tech
@@ -72,12 +66,16 @@ BookByCover requires [Python](https://www.python.org/downloads/) v3+ and [Google
 
 Sign up for Google Books API. Quickstart guide [here](https://developers.google.com/books/docs/v1/getting_started).
 
-Install the dependencies and start the server.
-
-For production environments...
+Install the dependencies ...
 
 ```sh
 pip3 install -r requirements.txt
+```
+
+Start the server...
+
+```sh
+python3 server.py
 ```
 
 ## Port Addressing
