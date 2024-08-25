@@ -3,8 +3,6 @@
 
 [Link to the live demo](https://songstratus.herokuapp.com/)
 
-<img src="https://media.istockphoto.com/id/1313502372/vector/book-icon-open-pages-education-symbol-book-black-silhouette.jpg?s=612x612&w=0&k=20&c=0occ552bX8hSKR9h2upiaEwlNnlpufs2trCqk0j-RXc="/>
-
 
 BookByCover is a mobile-responsive web application that allows users to browse and favorite books, powered by the Google Books API. It also supports offline storage for seamless access anytime, anywhere.
 
