@@ -13,14 +13,14 @@ connect_to_db(app)
 app.app_context().push()
 db.create_all()
 
-# Use fake book data from JSON until API is implemented
-with open("data/books.json") as f:
-    book_data = json.loads(f.read())
+# # Use fake book data from JSON until API is implemented
+# with open("data/books.json") as f:
+#     book_data = json.loads(f.read())
 
 # add in additional data via loop to delete
 books_in_db = []
 # for book in API limit 100
-for book in book_data:
+for book in books_in_db:
     book_title, author_name, publish_date, genre_name, is_fiction, book_image = (
         book["book_title"],
         book["author_name"],

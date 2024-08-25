@@ -1,10 +1,12 @@
 .container {
   display: grid;
+
 }
 
 .container img {
   grid-column: 1;
   grid-row: 1;
+  margin: 10px;
 }
 
 
@@ -62,4 +64,18 @@ h1 {
 .poster {
     max-width: 800px;
     max-height: 400px;
+    margin: 10px;
+  }
+
+  .favorite-button {
+    margin: 10px;
+  }
+
+  .del-favorite-button {
+    margin: 10px;
+  }
+
+
+  .del-favorite-button-fav-page{
+    margin: 10px;
   }

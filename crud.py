@@ -34,8 +34,8 @@ def duplicate_books(book_to_check: Book) -> list[Book]:
     matching_books = [
         book for book in db_books if
         book.book_title == book_to_check.book_title and
-        book.author_name == book_to_check.author_name and
-        book.publish_date == book_to_check.publish_date
+        book.author_name == book_to_check.author_name
+        and book.publish_date == book_to_check.publish_date
     ]
     return matching_books
 
