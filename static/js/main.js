@@ -10,35 +10,43 @@ function showBookByTitle(evt) {
       console.log(searchedBooks);
       const searchResultsDiv = document.querySelector("#search-results");
       // source: https://www.sitepoint.com/loop-through-json-response-javascript/
+      searchResultsDiv.innerHTML = `<h3>Search Results:</h3>`
       searchedBooks.forEach((book) => {
         console.log(book);
         // source: https://www.digitalocean.com/community/tutorials/how-to-add-javascript-to-html
         // https://www.geeksforgeeks.org/how-to-append-html-code-to-a-div-using-javascript/
-        searchResultsDiv.innerHTML = `<h2>Search Results:</h2><h3>${book.book_title}</h3><p>${book.author_name}</p><p><img class="poster" src='${book.book_image}'/></p>`;
+
+        searchResultsDiv.innerHTML += `<h1>${book.book_title}</h1>
+        <h2>${book.author_name}</h2>
+        <p><img class="poster" src='${book.book_image}'/></p>`;
       });
     });
 }
 
 function showBookByAuthor(evt) {
   evt.preventDefault();
-  const url = "/books.json";
-  // const requestedBooks = new Request("books.json")
   const author_name = document.querySelector("#author-field").value;
   console.log("Success!");
+
   fetch(`/books/search/author?author=${author_name}`)
     .then((response) => response.json())
     .then((searchedBooks) => {
-      console.log(searchedBooks);
       const searchResultsDiv = document.querySelector("#search-results");
       // source: https://www.sitepoint.com/loop-through-json-response-javascript/
+      searchResultsDiv.innerHTML = `<h3>Search Results:</h3>`
       searchedBooks.forEach((book) => {
         console.log(book);
         // source: https://www.digitalocean.com/community/tutorials/how-to-add-javascript-to-html
         // https://www.geeksforgeeks.org/how-to-append-html-code-to-a-div-using-javascript/
-        searchResultsDiv.innerHTML += `<h2>Search Results:</h2><h3>${book.book_title}</h3><p>${book.author_name}</p><p><img class="poster" src='${book.book_image}'/></p>`;
+        searchResultsDiv.innerHTML += `<h1>${book.book_title}</h1>
+        <h2>${book.author_name}</h2>
+        <p><img class="poster" src='${book.book_image}'/></p>`;
       });
     });
 }
+
+
+
 
 
 function addFavorite(evt) {
