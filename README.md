@@ -1,7 +1,7 @@
 # BookByCover
 ## _Personalized book browsing platform_
 
-[Link to the live demo](https://songstratus.herokuapp.com/)
+[Link to the live demo](https://youtu.be/yzlgfBQLU_c?si=ovVHQmsyR6rvf0Ns)
 
 
 BookByCover is a mobile-responsive web application that allows users to browse and favorite books, powered by the Google Books API.
